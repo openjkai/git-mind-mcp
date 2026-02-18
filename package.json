@@ -16,6 +16,8 @@
     "start": "node dist/index.js",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:build": "npm run build && vitest run",
+    "ci": "npm run build && npm test",
     "lint": "eslint src --ext .ts"
   },
   "keywords": [
