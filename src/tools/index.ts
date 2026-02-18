@@ -1,10 +1,10 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { registerGetStatus } from "./get-status.js";
-import { registerGetCommitHistory } from "./get-commit-history.js";
-import { registerGetDiff } from "./get-diff.js";
-import { registerGetBlame } from "./get-blame.js";
-import { registerGetBranches } from "./get-branches.js";
-import { registerSuggestCommitMessage } from "./suggest-commit-message.js";
+import { registerGetStatus } from "./get-status";
+import { registerGetCommitHistory } from "./get-commit-history";
+import { registerGetDiff } from "./get-diff";
+import { registerGetBlame } from "./get-blame";
+import { registerGetBranches } from "./get-branches";
+import { registerSuggestCommitMessage } from "./suggest-commit-message";
 
 export function registerAllTools(server: McpServer): void {
   registerGetStatus(server);

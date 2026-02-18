@@ -7,7 +7,7 @@
 
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { registerAllTools } from "./tools/index.js";
+import { registerAllTools } from "./tools/index";
 
 // Optional: repo path from first CLI arg (for LibreChat: args in librechat.yaml)
 const repoPathArg = process.argv[2];

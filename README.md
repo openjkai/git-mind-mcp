@@ -33,7 +33,7 @@ npx git-mind-mcp /path/to/your/repo
 
 ### LibreChat
 
-Add to `librechat.yaml`:
+See [LibreChat Integration](docs/integrations/librechat.md) for detailed setup. Quick start — add to `librechat.yaml`:
 
 ```yaml
 mcpServers:
@@ -47,25 +47,7 @@ mcpServers:
     timeout: 30000
 ```
 
-### As submodule in LibreChat
-
-```bash
-cd /path/to/LibreChat
-git submodule add https://github.com/your-username/git-mind-mcp.git mcp-servers/git-mind
-```
-
-Then in `librechat.yaml`:
-
-```yaml
-mcpServers:
-  git-mind:
-    type: stdio
-    command: node
-    args:
-      - mcp-servers/git-mind/dist/index.js
-      - /path/to/repo
-    timeout: 30000
-```
+For submodule or local development setup, see [LibreChat Integration](docs/integrations/librechat.md).
 
 ## Development
 

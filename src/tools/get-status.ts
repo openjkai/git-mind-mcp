@@ -1,6 +1,6 @@
 import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { getGit } from "../lib/git.js";
+import { getGit } from "../lib/git";
 
 const GetStatusArgsSchema = z.object({
   repoPath: z.string().optional().describe("Path to the git repository (defaults to current directory)"),
