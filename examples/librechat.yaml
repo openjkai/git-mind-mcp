@@ -1,0 +1,21 @@
+# Example LibreChat MCP config for Git Mind
+# Add this under mcpServers in your librechat.yaml
+
+# Option 1: From npm (after publishing)
+# git-mind:
+#   type: stdio
+#   command: npx
+#   args:
+#     - -y
+#     - git-mind-mcp
+#     - /path/to/your/git/repo
+#   timeout: 30000
+
+# Option 2: From local submodule (mcp-servers/git-mind)
+# git-mind:
+#   type: stdio
+#   command: node
+#   args:
+#     - mcp-servers/git-mind/dist/index.js
+#     - /home/user/projects/my-repo
+#   timeout: 30000

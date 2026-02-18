@@ -1,0 +1,40 @@
+{
+  "name": "git-mind-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for Git intelligence - status, commits, diffs, blame, branches, and commit message suggestions",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "git-mind-mcp": "dist/index.js"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc && chmod +x dist/index.js",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src --ext .ts"
+  },
+  "keywords": ["mcp", "model-context-protocol", "git", "developer-tools", "librechat"],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/git-mind-mcp.git"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.26.0",
+    "simple-git": "^3.27.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.3.0",
+    "vitest": "^2.0.0"
+  }
+}
