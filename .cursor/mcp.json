@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "git-mind": {
+      "command": "node",
+      "args": ["dist/index.js"]
+    }
+  }
+}

@@ -2,14 +2,22 @@
 
 **MCP server for Git intelligence** — status, commits, diffs, blame, branches, and commit message suggestions. Integrates with [LibreChat](https://librechat.ai) and any MCP-compatible AI client.
 
+> **[Roadmap](ROADMAP.md)** — Planned features, phases, and timeline.
+
 ## Features
 
+**Read**
 - `get_status` — Working tree and staged changes
 - `get_commit_history` — Recent commits with author, date, message
 - `get_diff` — Diffs for working tree, staged, or between refs
 - `get_blame` — Who last modified each line of a file
 - `get_branches` — Local and remote branches
 - `suggest_commit_message` — Staged diff for AI to suggest commit messages
+
+**Write**
+- `stage` — Stage files for commit (git add)
+- `unstage` — Unstage files (git reset)
+- `commit` — Create a commit with staged changes
 
 ## Installation
 

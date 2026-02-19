@@ -5,6 +5,9 @@ import { registerGetDiff } from "./get-diff";
 import { registerGetBlame } from "./get-blame";
 import { registerGetBranches } from "./get-branches";
 import { registerSuggestCommitMessage } from "./suggest-commit-message";
+import { registerStage } from "./stage";
+import { registerUnstage } from "./unstage";
+import { registerCommit } from "./commit";
 
 export function registerAllTools(server: McpServer): void {
   registerGetStatus(server);
@@ -13,4 +16,7 @@ export function registerAllTools(server: McpServer): void {
   registerGetBlame(server);
   registerGetBranches(server);
   registerSuggestCommitMessage(server);
+  registerStage(server);
+  registerUnstage(server);
+  registerCommit(server);
 }
