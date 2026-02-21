@@ -1,6 +1,9 @@
 import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { getGit } from "../lib/git";
+import { getGit, validateRepo } from "../lib/git";
+import { textResponse } from "../lib/response";
+import { formatGitError } from "../lib/format-git-error";
+import { checkOperationAllowed } from "../lib/guard";
 
 const UnstageArgsSchema = z.object({
   repoPath: z.string().optional().describe("Path to the git repository (defaults to current directory)"),
@@ -21,18 +24,24 @@ export function registerUnstage(server: McpServer): void {
       outputSchema: { content: z.string() },
     },
     async (args) => {
-      const parsed = UnstageArgsSchema.parse(args);
-      const git = getGit(parsed.repoPath);
+      try {
+        const guard = checkOperationAllowed("unstage");
+        if (!guard.allowed) {
+          return textResponse(guard.reason ?? "Operation not allowed.");
+        }
 
-      const files = Array.isArray(parsed.files) ? parsed.files : [parsed.files];
-      await git.raw(["reset", "HEAD", "--", ...files]);
+        const parsed = UnstageArgsSchema.parse(args);
+        const git = getGit(parsed.repoPath);
+        await validateRepo(parsed.repoPath);
 
-      const list = files.length === 1 ? files[0] : files.join(", ");
-      const text = `Unstaged ${list}.`;
-      return {
-        content: [{ type: "text" as const, text }],
-        structuredContent: { content: text },
-      };
+        const files = Array.isArray(parsed.files) ? parsed.files : [parsed.files];
+        await git.raw(["reset", "HEAD", "--", ...files]);
+
+        const list = files.length === 1 ? files[0] : files.join(", ");
+        return textResponse(`Unstaged ${list}.`);
+      } catch (e) {
+        return textResponse(`Error: ${formatGitError(e)}`);
+      }
     },
   );
 }

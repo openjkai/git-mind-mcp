@@ -1,6 +1,8 @@
 import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { getGit } from "../lib/git";
+import { getGit, validateRepo } from "../lib/git";
+import { textResponse } from "../lib/response";
+import { formatGitError } from "../lib/format-git-error";
 
 const GetDiffArgsSchema = z.object({
   repoPath: z.string().optional().describe("Path to the git repository"),
@@ -20,23 +22,25 @@ export function registerGetDiff(server: McpServer): void {
       outputSchema: { content: z.string() },
     },
     async (args) => {
-      const parsed = GetDiffArgsSchema.parse(args);
-      const git = getGit(parsed.repoPath);
+      try {
+        const parsed = GetDiffArgsSchema.parse(args);
+        const git = getGit(parsed.repoPath);
+        await validateRepo(parsed.repoPath);
 
-      let diff: string;
-      if (parsed.ref) {
-        diff = await git.diff([parsed.ref, parsed.filePath].filter(Boolean) as string[]);
-      } else if (parsed.filePath) {
-        diff = await git.diff(["--", parsed.filePath]);
-      } else {
-        diff = await git.diff();
+        let diff: string;
+        if (parsed.ref) {
+          diff = await git.diff([parsed.ref, parsed.filePath].filter(Boolean) as string[]);
+        } else if (parsed.filePath) {
+          diff = await git.diff(["--", parsed.filePath]);
+        } else {
+          diff = await git.diff();
+        }
+
+        const text = diff || "No diff (working tree matches HEAD).";
+        return textResponse(text);
+      } catch (e) {
+        return textResponse(`Error: ${formatGitError(e)}`);
       }
-
-      const text = diff || "No diff (working tree matches HEAD).";
-      return {
-        content: [{ type: "text" as const, text }],
-        structuredContent: { content: text },
-      };
     },
   );
 }

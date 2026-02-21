@@ -1,6 +1,9 @@
 import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { getGit } from "../lib/git";
+import { getGit, validateRepo } from "../lib/git";
+import { textResponse } from "../lib/response";
+import { formatGitError } from "../lib/format-git-error";
+import { checkOperationAllowed } from "../lib/guard";
 
 const CommitArgsSchema = z.object({
   repoPath: z.string().optional().describe("Path to the git repository (defaults to current directory)"),
@@ -19,25 +22,28 @@ export function registerCommit(server: McpServer): void {
       outputSchema: { content: z.string() },
     },
     async (args) => {
-      const parsed = CommitArgsSchema.parse(args);
-      const git = getGit(parsed.repoPath);
+      try {
+        const guard = checkOperationAllowed("commit");
+        if (!guard.allowed) {
+          return textResponse(guard.reason ?? "Operation not allowed.");
+        }
 
-      const result = await git.commit(parsed.message);
+        const parsed = CommitArgsSchema.parse(args);
+        const git = getGit(parsed.repoPath);
+        await validateRepo(parsed.repoPath);
 
-      if (!result.commit) {
-        const text =
-          "Nothing to commit. Stage changes first with the stage tool, then commit.";
-        return {
-          content: [{ type: "text" as const, text }],
-          structuredContent: { content: text },
-        };
+        const result = await git.commit(parsed.message);
+
+        if (!result.commit) {
+          return textResponse(
+            "Nothing to commit. Stage changes first with the stage tool, then commit.",
+          );
+        }
+
+        return textResponse(`Committed: ${result.commit}\n${parsed.message}`);
+      } catch (e) {
+        return textResponse(`Error: ${formatGitError(e)}`);
       }
-
-      const text = `Committed: ${result.commit}\n${parsed.message}`;
-      return {
-        content: [{ type: "text" as const, text }],
-        structuredContent: { content: text },
-      };
     },
   );
 }

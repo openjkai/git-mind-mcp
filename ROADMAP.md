@@ -16,7 +16,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 |------|--------|
 | Read tools | ✅ Complete |
 | Write tools | ✅ stage, unstage, commit |
-| Safety layer | 🔲 Planned |
+| Safety layer | ✅ Config + guard |
 | Private server support | ✅ Via standard Git (SSH/HTTPS) |
 
 ### Available Now
@@ -35,11 +35,11 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 ### Phase 1 — Foundation & Core Actions  
 *Target: ~1 week* ✅
 
-- ~~Safety layer (operation allowlist, protected branches)~~
-- ~~Environment-based config (`GIT_MIND_*`)~~
+- ~~Safety layer (operation allowlist, protected branches)~~ ✅
+- ~~Environment-based config (`GIT_MIND_*`)~~ ✅
 - ~~Write tools: `stage`, `unstage`, `commit`~~ ✅
-- `get_remotes` read tool
-- Unit tests for stage, unstage, commit ✅
+- ~~`get_remotes` read tool~~ ✅
+- ~~Unit tests for stage, unstage, commit~~ ✅
 
 ### Phase 2 — Sync & Branching  
 *Target: ~1 week*
@@ -76,7 +76,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | get_blame | ✅ | — |
 | get_branches | ✅ | — |
 | suggest_commit_message | ✅ | — |
-| get_remotes | 🔲 | — |
+| get_remotes | ✅ | — |
 | stage | ✅ | Low |
 | unstage | ✅ | Low |
 | commit | ✅ | Low |
@@ -99,7 +99,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - **Protected branches** — Configurable list (e.g. `main`, `master`) where force/delete are blocked
 - **Operation allowlist** — Only approved actions can run; configurable per environment
 
-See [docs/safety.md](docs/safety.md) for details *(to be added)*.
+See [docs/safety.md](docs/safety.md) for details.
 
 ---
 

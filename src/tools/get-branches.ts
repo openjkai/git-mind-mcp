@@ -1,6 +1,8 @@
 import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { getGit } from "../lib/git";
+import { getGit, validateRepo } from "../lib/git";
+import { textResponse } from "../lib/response";
+import { formatGitError } from "../lib/format-git-error";
 
 const GetBranchesArgsSchema = z.object({
   repoPath: z.string().optional().describe("Path to the git repository"),
@@ -18,23 +20,25 @@ export function registerGetBranches(server: McpServer): void {
       outputSchema: { content: z.string() },
     },
     async (args) => {
-      const parsed = GetBranchesArgsSchema.parse(args);
-      const git = getGit(parsed.repoPath);
+      try {
+        const parsed = GetBranchesArgsSchema.parse(args);
+        const git = getGit(parsed.repoPath);
+        await validateRepo(parsed.repoPath);
 
-      const branch = await git.branch(["-a", "-v"]);
-      const lines: string[] = [];
+        const branch = await git.branch(["-a", "-v"]);
+        const lines: string[] = [];
 
-      lines.push("Local branches:");
-      branch.all.forEach((b) => {
-        const current = branch.current === b ? " * " : "   ";
-        lines.push(`${current}${b}`);
-      });
+        lines.push("Local branches:");
+        branch.all.forEach((b) => {
+          const current = branch.current === b ? " * " : "   ";
+          lines.push(`${current}${b}`);
+        });
 
-      const text = lines.join("\n");
-      return {
-        content: [{ type: "text" as const, text }],
-        structuredContent: { content: text },
-      };
+        const text = lines.join("\n");
+        return textResponse(text);
+      } catch (e) {
+        return textResponse(`Error: ${formatGitError(e)}`);
+      }
     },
   );
 }

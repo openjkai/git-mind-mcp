@@ -3,6 +3,7 @@ import { registerGetBlame } from "../../src/tools/get-blame";
 
 vi.mock("../../src/lib/git", () => ({
   getGit: vi.fn(),
+  validateRepo: vi.fn().mockResolvedValue(undefined),
 }));
 
 import { getGit } from "../../src/lib/git";
@@ -32,9 +33,12 @@ describe("get_blame tool", () => {
     expect(text).toContain("abc123");
   });
 
-  it("requires filePath (Zod validation)", async () => {
+  it("returns error when filePath missing (Zod validation)", async () => {
     const handler = mockServer.getHandler("get_blame");
-    await expect(handler({})).rejects.toThrow();
+    const result = await handler({});
+    expect(result).toMatchObject({
+      content: [{ type: "text", text: expect.stringContaining("Error") }],
+    });
   });
 
   it("passes repoPath to getGit", async () => {

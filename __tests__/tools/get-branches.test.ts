@@ -3,6 +3,7 @@ import { registerGetBranches } from "../../src/tools/get-branches";
 
 vi.mock("../../src/lib/git", () => ({
   getGit: vi.fn(),
+  validateRepo: vi.fn().mockResolvedValue(undefined),
 }));
 
 import { getGit } from "../../src/lib/git";

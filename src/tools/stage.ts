@@ -1,6 +1,9 @@
 import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { getGit } from "../lib/git";
+import { getGit, validateRepo } from "../lib/git";
+import { textResponse } from "../lib/response";
+import { formatGitError } from "../lib/format-git-error";
+import { checkOperationAllowed } from "../lib/guard";
 
 const StageArgsSchema = z.object({
   repoPath: z.string().optional().describe("Path to the git repository (defaults to current directory)"),
@@ -21,19 +24,24 @@ export function registerStage(server: McpServer): void {
       outputSchema: { content: z.string() },
     },
     async (args) => {
-      const parsed = StageArgsSchema.parse(args);
-      const git = getGit(parsed.repoPath);
+      try {
+        const guard = checkOperationAllowed("stage");
+        if (!guard.allowed) {
+          return textResponse(guard.reason ?? "Operation not allowed.");
+        }
 
-      const files = Array.isArray(parsed.files) ? parsed.files : [parsed.files];
+        const parsed = StageArgsSchema.parse(args);
+        const git = getGit(parsed.repoPath);
+        await validateRepo(parsed.repoPath);
 
-      await git.add(files);
+        const files = Array.isArray(parsed.files) ? parsed.files : [parsed.files];
+        await git.add(files);
 
-      const list = files.length === 1 ? files[0] : files.join(", ");
-      const text = `Staged ${list}.`;
-      return {
-        content: [{ type: "text" as const, text }],
-        structuredContent: { content: text },
-      };
+        const list = files.length === 1 ? files[0] : files.join(", ");
+        return textResponse(`Staged ${list}.`);
+      } catch (e) {
+        return textResponse(`Error: ${formatGitError(e)}`);
+      }
     },
   );
 }

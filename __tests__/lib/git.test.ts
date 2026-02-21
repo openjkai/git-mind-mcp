@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { getGit, resolveRepoPath } from "../../src/lib/git";
+import { getGit, resolveRepoPath, validateRepo } from "../../src/lib/git";
 import path from "path";
 
 describe("git lib", () => {
@@ -27,6 +27,16 @@ describe("git lib", () => {
     it("returns process.cwd() when repoPath is omitted", () => {
       const result = resolveRepoPath();
       expect(result).toBe(process.cwd());
+    });
+  });
+
+  describe("validateRepo", () => {
+    it("resolves for valid repo (project root)", async () => {
+      await expect(validateRepo(process.cwd())).resolves.toBeUndefined();
+    });
+
+    it("throws for invalid path", async () => {
+      await expect(validateRepo("/nonexistent/path/12345")).rejects.toThrow();
     });
   });
 });

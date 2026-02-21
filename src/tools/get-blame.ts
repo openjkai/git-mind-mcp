@@ -1,6 +1,8 @@
 import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { getGit } from "../lib/git";
+import { getGit, validateRepo } from "../lib/git";
+import { textResponse } from "../lib/response";
+import { formatGitError } from "../lib/format-git-error";
 
 const GetBlameArgsSchema = z.object({
   repoPath: z.string().optional().describe("Path to the git repository"),
@@ -19,15 +21,17 @@ export function registerGetBlame(server: McpServer): void {
       outputSchema: { content: z.string() },
     },
     async (args) => {
-      const parsed = GetBlameArgsSchema.parse(args);
-      const git = getGit(parsed.repoPath);
+      try {
+        const parsed = GetBlameArgsSchema.parse(args);
+        const git = getGit(parsed.repoPath);
+        await validateRepo(parsed.repoPath);
 
-      const blame = await git.raw(["blame", "-w", parsed.filePath]);
-      const text = blame || "No blame output (file may be empty or binary).";
-      return {
-        content: [{ type: "text" as const, text }],
-        structuredContent: { content: text },
-      };
+        const blame = await git.raw(["blame", "-w", parsed.filePath]);
+        const text = blame || "No blame output (file may be empty or binary).";
+        return textResponse(text);
+      } catch (e) {
+        return textResponse(`Error: ${formatGitError(e)}`);
+      }
     },
   );
 }

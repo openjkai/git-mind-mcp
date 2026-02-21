@@ -3,6 +3,7 @@ import { registerUnstage } from "../../src/tools/unstage";
 
 vi.mock("../../src/lib/git", () => ({
   getGit: vi.fn(),
+  validateRepo: vi.fn().mockResolvedValue(undefined),
 }));
 
 import { getGit } from "../../src/lib/git";

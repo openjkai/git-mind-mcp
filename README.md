@@ -12,12 +12,18 @@
 - `get_diff` — Diffs for working tree, staged, or between refs
 - `get_blame` — Who last modified each line of a file
 - `get_branches` — Local and remote branches
+- `get_remotes` — List remotes and URLs (for push/pull targets)
 - `suggest_commit_message` — Staged diff for AI to suggest commit messages
 
 **Write**
 - `stage` — Stage files for commit (git add)
 - `unstage` — Unstage files (git reset)
 - `commit` — Create a commit with staged changes
+
+**Configuration** (environment variables)
+- `GIT_MIND_ALLOWED_ACTIONS` — Comma-separated list of allowed operations (default: `stage,unstage,commit`)
+- `GIT_MIND_PROTECTED_BRANCHES` — Branches to protect from force/delete (default: `main,master`)
+- `GIT_MIND_STRICT_MODE` — Set to `1` to disable force operations
 
 ## Installation
 

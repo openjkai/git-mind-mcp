@@ -3,7 +3,7 @@ import { registerAllTools } from "../../src/tools/index";
 import { createMockServer } from "./helpers";
 
 describe("tool registration", () => {
-  it("registers all 9 tools", () => {
+  it("registers all 10 tools", () => {
     const mockServer = createMockServer();
     registerAllTools(mockServer);
 
@@ -13,6 +13,7 @@ describe("tool registration", () => {
       "get_diff",
       "get_blame",
       "get_branches",
+      "get_remotes",
       "suggest_commit_message",
       "stage",
       "unstage",
