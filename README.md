@@ -19,10 +19,15 @@
 - `stage` — Stage files for commit (git add)
 - `unstage` — Unstage files (git reset)
 - `commit` — Create a commit with staged changes
+- `push` — Push to remote (protected branches blocked)
+- `pull` — Pull from remote
+- `checkout` — Switch branch or restore file
+- `create_branch` — Create and optionally checkout a branch
+- `delete_branch` — Delete local branch (protected branches blocked)
 
 **Configuration** (environment variables)
-- `GIT_MIND_ALLOWED_ACTIONS` — Comma-separated list of allowed operations (default: `stage,unstage,commit`)
-- `GIT_MIND_PROTECTED_BRANCHES` — Branches to protect from force/delete (default: `main,master`)
+- `GIT_MIND_ALLOWED_ACTIONS` — Comma-separated list of allowed operations (default: `stage,unstage,commit`). Add `push,pull,checkout,create_branch,delete_branch` to enable sync and branching.
+- `GIT_MIND_PROTECTED_BRANCHES` — Branches to protect from push/delete (default: `main,master`)
 - `GIT_MIND_STRICT_MODE` — Set to `1` to disable force operations
 
 ## Installation

@@ -20,6 +20,15 @@ export function formatGitError(error: unknown): string {
     if (msg.includes("no changes added to commit")) {
       return "No changes added to commit.";
     }
+    if (msg.includes("merge conflict") || msg.includes("CONFLICT")) {
+      return "Merge conflict. Resolve conflicts manually, then stage and commit.";
+    }
+    if (msg.includes("rejected") && msg.includes("push")) {
+      return "Push rejected (non-fast-forward). Pull first or use rebase.";
+    }
+    if (msg.includes("Permission denied") || msg.includes("Authentication failed")) {
+      return "Authentication failed. Check SSH keys or credentials.";
+    }
     return msg;
   }
   return String(error);

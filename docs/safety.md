@@ -14,15 +14,15 @@ All safety settings are controlled via environment variables (`GIT_MIND_*`).
 
 ## Operation Allowlist
 
-Only operations listed in `GIT_MIND_ALLOWED_ACTIONS` can execute. To enable push and pull:
+Only operations listed in `GIT_MIND_ALLOWED_ACTIONS` can execute. Default is `stage,unstage,commit`. To enable push, pull, and branching:
 
 ```bash
-export GIT_MIND_ALLOWED_ACTIONS=stage,unstage,commit,push,pull
+export GIT_MIND_ALLOWED_ACTIONS=stage,unstage,commit,push,pull,checkout,create_branch,delete_branch
 ```
 
 ## Protected Branches
 
-When implemented for `push` and `delete_branch`, operations on protected branches will be blocked or require explicit override.
+`push` and `delete_branch` enforce protected branches: you cannot force push to or delete `main`/`master` (or any branch in `GIT_MIND_PROTECTED_BRANCHES`). Regular pushes are allowed. Configure or remove branches to customize.
 
 ## Strict Mode
 

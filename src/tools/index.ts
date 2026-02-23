@@ -9,6 +9,11 @@ import { registerSuggestCommitMessage } from "./suggest-commit-message";
 import { registerStage } from "./stage";
 import { registerUnstage } from "./unstage";
 import { registerCommit } from "./commit";
+import { registerPush } from "./push";
+import { registerPull } from "./pull";
+import { registerCheckout } from "./checkout";
+import { registerCreateBranch } from "./create-branch";
+import { registerDeleteBranch } from "./delete-branch";
 
 export function registerAllTools(server: McpServer): void {
   registerGetStatus(server);
@@ -21,4 +26,9 @@ export function registerAllTools(server: McpServer): void {
   registerStage(server);
   registerUnstage(server);
   registerCommit(server);
+  registerPush(server);
+  registerPull(server);
+  registerCheckout(server);
+  registerCreateBranch(server);
+  registerDeleteBranch(server);
 }

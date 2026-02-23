@@ -15,7 +15,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | Area | Status |
 |------|--------|
 | Read tools | ✅ Complete |
-| Write tools | ✅ stage, unstage, commit |
+| Write tools | ✅ stage, unstage, commit, push, pull, checkout, create_branch, delete_branch |
 | Safety layer | ✅ Config + guard |
 | Private server support | ✅ Via standard Git (SSH/HTTPS) |
 
@@ -44,9 +44,9 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 ### Phase 2 — Sync & Branching  
 *Target: ~1 week*
 
-- `push`, `pull` with safety checks
-- `checkout`, `create_branch`, `delete_branch`
-- Protected-branch enforcement
+- ~~`push`, `pull` with safety checks~~ ✅
+- ~~`checkout`, `create_branch`, `delete_branch`~~ ✅
+- ~~Protected-branch enforcement~~ ✅
 - Integration tests for remote operations
 
 ### Phase 3 — Merge, Stash & Polish  
@@ -80,11 +80,11 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | stage | ✅ | Low |
 | unstage | ✅ | Low |
 | commit | ✅ | Low |
-| push | 🔲 | Medium |
-| pull | 🔲 | Medium |
-| checkout | 🔲 | Low |
-| create_branch | 🔲 | Low |
-| delete_branch | 🔲 | Medium |
+| push | ✅ | Medium |
+| pull | ✅ | Medium |
+| checkout | ✅ | Low |
+| create_branch | ✅ | Low |
+| delete_branch | ✅ | Medium |
 | merge | 🔲 | Medium |
 | stash | 🔲 | Low |
 | reset | 🔲 | Medium/High |
