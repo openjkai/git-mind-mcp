@@ -18,6 +18,11 @@ export function getGit(repoPath?: string): SimpleGit {
   return simpleGit(repo);
 }
 
+/** Strip remotes/remote/ prefix to get local branch name (e.g. remotes/origin/main -> main). */
+export function toLocalBranchName(ref: string): string {
+  return ref.replace(/^remotes\/[^/]+\//, "");
+}
+
 /**
  * Validate that the path is a git repository.
  * @returns true if valid
