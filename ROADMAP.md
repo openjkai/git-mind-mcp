@@ -6,7 +6,7 @@ A powerful MCP server for Git actions — enabling AI assistants (Cursor, Claude
 
 ## Vision
 
-Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. It provides read operations (status, diff, blame, branches) and will extend to full write workflows (stage, commit, push, pull) with built-in guardrails to prevent destructive operations.
+Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. It provides read operations (status, diff, blame, branches) and write workflows (stage, commit, push, pull, checkout, branching) with built-in guardrails to prevent destructive operations.
 
 ---
 
@@ -21,12 +21,21 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 
 ### Available Now
 
+**Read**
 - `get_status` — Working tree and staged changes
 - `get_commit_history` — Recent commits with author, date, message
 - `get_diff` — Diffs for working tree, staged, or between refs
 - `get_blame` — Line-by-line blame
 - `get_branches` — Local and remote branches
+- `get_remotes` — List remotes and URLs
 - `suggest_commit_message` — Staged diff for AI commit message suggestions
+
+**Write**
+- `stage`, `unstage`, `commit` — Stage and commit changes
+- `push`, `pull` — Sync with remotes (guardrails applied)
+- `checkout` — Switch branch or restore file
+- `create_branch`, `delete_branch` — Branch management (protected branches blocked)
+- `merge` — Merge a branch into current (cannot merge into protected branches)
 
 ---
 
@@ -42,20 +51,22 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - ~~Unit tests for stage, unstage, commit~~ ✅
 
 ### Phase 2 — Sync & Branching  
-*Target: ~1 week*
+*Target: ~1 week* ✅
 
 - ~~`push`, `pull` with safety checks~~ ✅
 - ~~`checkout`, `create_branch`, `delete_branch`~~ ✅
 - ~~Protected-branch enforcement~~ ✅
-- Integration tests for remote operations
+- ~~Unit tests for push, pull, checkout, create_branch, delete_branch~~ ✅
 
 ### Phase 3 — Merge, Stash & Polish  
 *Target: ~1 week*
 
-- `merge`, `stash` (push/pop/list), `reset` (soft/mixed only)
+- ~~`merge`~~ ✅
+- `stash` (push/pop/list), `reset` (soft/mixed only)
 - `fetch`, optional `force_push` behind config flag
 - Dry-run support for critical ops
 - Client setup docs: Cursor, Claude, ChatGPT
+- Integration tests for remote operations (optional)
 
 ### Phase 4 — Release & Iteration  
 *Target: Ongoing*
@@ -85,7 +96,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | checkout | ✅ | Low |
 | create_branch | ✅ | Low |
 | delete_branch | ✅ | Medium |
-| merge | 🔲 | Medium |
+| merge | ✅ | Medium |
 | stash | 🔲 | Low |
 | reset | 🔲 | Medium/High |
 | fetch | 🔲 | Low |
