@@ -1,6 +1,6 @@
 import { z } from "zod";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { getGit, validateRepo } from "../lib/git";
+import { getGit, toLocalBranchName, validateRepo } from "../lib/git";
 import { textResponse } from "../lib/response";
 import { formatGitError } from "../lib/format-git-error";
 import {
@@ -44,7 +44,7 @@ export function registerPush(server: McpServer): void {
           return textResponse("No branch to push (detached HEAD state).");
         }
 
-        const branchName = branch.replace(/^remotes\/[^/]+\//, "");
+        const branchName = toLocalBranchName(branch);
         if (parsed.force) {
           const forceGuard = checkForceAllowed();
           if (!forceGuard.allowed) {
@@ -59,8 +59,9 @@ export function registerPush(server: McpServer): void {
         }
 
         const pushOpts = parsed.force ? ["--force"] : [];
-        await git.push(parsed.remote ?? "origin", branch, pushOpts);
-        return textResponse(`Pushed ${branch} to ${parsed.remote}.`);
+        const remote = parsed.remote;
+        await git.push(remote, branch, pushOpts);
+        return textResponse(`Pushed ${branch} to ${remote}.`);
       } catch (e) {
         return textResponse(`Error: ${formatGitError(e)}`);
       }

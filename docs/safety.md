@@ -9,20 +9,20 @@ All safety settings are controlled via environment variables (`GIT_MIND_*`).
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `GIT_MIND_ALLOWED_ACTIONS` | `stage,unstage,commit` | Comma-separated list of operations that can run |
-| `GIT_MIND_PROTECTED_BRANCHES` | `main,master` | Branches protected from force push and delete |
+| `GIT_MIND_PROTECTED_BRANCHES` | `main,master` | Branches protected from force push, delete, and merge |
 | `GIT_MIND_STRICT_MODE` | `0` | Set to `1` to disable all force operations |
 
 ## Operation Allowlist
 
-Only operations listed in `GIT_MIND_ALLOWED_ACTIONS` can execute. Default is `stage,unstage,commit`. To enable push, pull, and branching:
+Only operations listed in `GIT_MIND_ALLOWED_ACTIONS` can execute. Default is `stage,unstage,commit`. To enable push, pull, branching, and merge:
 
 ```bash
-export GIT_MIND_ALLOWED_ACTIONS=stage,unstage,commit,push,pull,checkout,create_branch,delete_branch
+export GIT_MIND_ALLOWED_ACTIONS=stage,unstage,commit,push,pull,checkout,create_branch,delete_branch,merge
 ```
 
 ## Protected Branches
 
-`push` and `delete_branch` enforce protected branches: you cannot force push to or delete `main`/`master` (or any branch in `GIT_MIND_PROTECTED_BRANCHES`). Regular pushes are allowed. Configure or remove branches to customize.
+`push`, `delete_branch`, and `merge` enforce protected branches: you cannot force-push to, delete, or merge into `main`/`master` (or any branch in `GIT_MIND_PROTECTED_BRANCHES`). Normal pushes to protected branches and merges where the protected branch is the source (e.g., merging `main` into a feature branch) are allowed. Configure or remove branches to customize.
 
 ## Strict Mode
 

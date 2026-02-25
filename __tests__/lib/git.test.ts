@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { getGit, resolveRepoPath, validateRepo } from "../../src/lib/git";
+import { getGit, resolveRepoPath, toLocalBranchName, validateRepo } from "../../src/lib/git";
 import path from "path";
 
 describe("git lib", () => {
@@ -27,6 +27,23 @@ describe("git lib", () => {
     it("returns process.cwd() when repoPath is omitted", () => {
       const result = resolveRepoPath();
       expect(result).toBe(process.cwd());
+    });
+  });
+
+  describe("toLocalBranchName", () => {
+    it("strips remotes/remote/ prefix", () => {
+      expect(toLocalBranchName("remotes/origin/main")).toBe("main");
+      expect(toLocalBranchName("remotes/upstream/feature")).toBe("feature");
+    });
+
+    it("preserves internal slashes in branch names when stripping prefix", () => {
+      expect(toLocalBranchName("remotes/origin/feature/my-branch")).toBe("feature/my-branch");
+      expect(toLocalBranchName("remotes/upstream/bugfix/issue-123")).toBe("bugfix/issue-123");
+    });
+
+    it("returns as-is when no prefix", () => {
+      expect(toLocalBranchName("main")).toBe("main");
+      expect(toLocalBranchName("feature/foo")).toBe("feature/foo");
     });
   });
 

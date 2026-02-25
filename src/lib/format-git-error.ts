@@ -3,13 +3,11 @@
  */
 export function formatGitError(error: unknown): string {
   if (error instanceof Error) {
-    const msg = error.message;
+    const raw = error.message;
+    const msg = raw.toLowerCase();
     // Common patterns from simple-git and git CLI
-    if (msg.includes("not a git repository") || msg.includes("Not a git repository")) {
+    if (msg.includes("not a git repository")) {
       return "Not a git repository. Ensure the path points to a valid repo.";
-    }
-    if (msg.includes("fatal: not a git repository")) {
-      return "Not a git repository.";
     }
     if (msg.includes("pathspec") && msg.includes("did not match")) {
       return "One or more file paths do not exist or are not in the repo.";
@@ -26,10 +24,10 @@ export function formatGitError(error: unknown): string {
     if (msg.includes("rejected") && msg.includes("push")) {
       return "Push rejected (non-fast-forward). Pull first or use rebase.";
     }
-    if (msg.includes("Permission denied") || msg.includes("Authentication failed")) {
+    if (msg.includes("permission denied") || msg.includes("authentication failed")) {
       return "Authentication failed. Check SSH keys or credentials.";
     }
-    return msg;
+    return raw;
   }
   return String(error);
 }

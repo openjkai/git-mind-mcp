@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
 /**
- * Git Mind MCP - Local Git intelligence for AI assistants
- * Exposes: status, commits, diffs, blame, branches, commit message suggestions
+ * Git Mind MCP - Git intelligence for AI assistants
+ * Read: status, commits, diffs, blame, branches, remotes, commit message suggestions
+ * Write: stage, unstage, commit, push, pull, checkout, create_branch, delete_branch, merge
  */
 
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";

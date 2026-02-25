@@ -1,10 +1,14 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { registerPush } from "../../src/tools/push";
 
-vi.mock("../../src/lib/git", () => ({
-  getGit: vi.fn(),
-  validateRepo: vi.fn().mockResolvedValue(undefined),
-}));
+vi.mock("../../src/lib/git", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("../../src/lib/git")>();
+  return {
+    ...actual,
+    getGit: vi.fn(),
+    validateRepo: vi.fn().mockResolvedValue(undefined),
+  };
+});
 
 vi.mock("../../src/lib/guard", () => ({
   checkForceAllowed: vi.fn(),

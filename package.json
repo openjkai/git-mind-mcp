@@ -1,7 +1,7 @@
 {
   "name": "git-mind-mcp",
   "version": "1.0.0",
-  "description": "MCP server for Git intelligence - status, commits, diffs, blame, branches, and commit message suggestions",
+  "description": "MCP server for Git intelligence - status, diff, blame, branches, stage, commit, push, pull, checkout, branching. Works with any MCP client (Cursor, Claude, LibreChat).",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
