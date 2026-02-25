@@ -38,26 +38,30 @@ export function registerMerge(server: McpServer): void {
           return textResponse("Cannot merge in detached HEAD state.");
         }
 
-        const currentName = toLocalBranchName(currentBranch);
-        if (isProtectedBranch(currentName)) {
+        const currentNameForCheck = currentBranch.startsWith("remotes/")
+          ? toLocalBranchName(currentBranch)
+          : currentBranch;
+        if (isProtectedBranch(currentNameForCheck)) {
           return textResponse(
-            `Cannot merge into protected branch '${currentName}'. ` +
+            `Cannot merge into protected branch '${currentBranch}'. ` +
               "Checkout a different branch first, or adjust GIT_MIND_PROTECTED_BRANCHES.",
           );
         }
 
-        const branchToMerge = toLocalBranchName(parsed.branch);
-        const result = await git.merge([branchToMerge]);
+        const result = await git.merge([parsed.branch]);
 
         if (result.failed) {
+          try {
+            await git.merge(["--abort"]);
+          } catch {
+            /* best-effort cleanup */
+          }
           const conflicts = result.conflicts ?? [];
-          const conflictList =
+          const reason =
             conflicts.length > 0
-              ? conflicts.map((c) => c.file ?? "?").join(", ")
-              : "unknown";
-          return textResponse(
-            `Merge failed (conflicts). Conflicting files: ${conflictList}`,
-          );
+              ? `conflicting files: ${conflicts.map((c) => c.file ?? "?").join(", ")}`
+              : "unknown reason";
+          return textResponse(`Merge failed: ${reason}`);
         }
 
         const summary = result.summary;
@@ -66,7 +70,7 @@ export function registerMerge(server: McpServer): void {
         const deletions = summary?.deletions ?? 0;
         const merges = result.merges?.length ?? 0;
 
-        const lines = [`Merged ${branchToMerge} into ${currentName}.`];
+        const lines = [`Merged ${parsed.branch} into ${currentBranch}.`];
         if (merges > 0) lines.push(`  Files merged: ${merges}`);
         if (changes > 0) lines.push(`  Files changed: ${changes}`);
         if (insertions > 0) lines.push(`  Insertions: ${insertions}`);

@@ -1,6 +1,6 @@
 # Git Mind MCP
 
-**MCP server for Git intelligence** — status, diff, blame, branches, stage, commit, push, pull, checkout, branching. Works with any MCP-compatible client (Cursor, Claude Desktop, [LibreChat](https://librechat.ai), etc.).
+**MCP server for Git intelligence** — status, diff, blame, branches, merge, stage, commit, push, pull, checkout, branching. Works with any MCP-compatible client (Cursor, Claude Desktop, [LibreChat](https://librechat.ai), etc.).
 
 > **[Roadmap](ROADMAP.md)** — Planned features, phases, and timeline.
 
@@ -28,7 +28,7 @@
 
 **Configuration** (environment variables)
 - `GIT_MIND_ALLOWED_ACTIONS` — Comma-separated list of allowed operations (default: `stage,unstage,commit`). Add `push,pull,checkout,create_branch,delete_branch,merge` to enable sync, branching, and merge.
-- `GIT_MIND_PROTECTED_BRANCHES` — Branches to protect from push/delete (default: `main,master`)
+- `GIT_MIND_PROTECTED_BRANCHES` — Branches to protect from push/delete/merge (default: `main,master`)
 - `GIT_MIND_STRICT_MODE` — Set to `1` to disable force operations
 
 ## Installation

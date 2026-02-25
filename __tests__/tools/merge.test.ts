@@ -65,7 +65,7 @@ describe("merge tool", () => {
 
     expect(mockMerge).not.toHaveBeenCalled();
     expect(result).toMatchObject({
-      content: [{ type: "text", text: expect.stringContaining("allowed") }],
+      content: [{ type: "text", text: expect.stringContaining("not in allowed actions") }],
     });
   });
 
@@ -93,7 +93,7 @@ describe("merge tool", () => {
     const result = await handler({ branch: "other" });
 
     expect(result).toMatchObject({
-      content: [{ type: "text", text: expect.stringContaining("Merge failed (conflicts)") }],
+      content: [{ type: "text", text: expect.stringContaining("Merge failed: conflicting files:") }],
     });
   });
 

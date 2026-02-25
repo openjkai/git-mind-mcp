@@ -6,7 +6,7 @@
 
 - `get_remotes` — List remotes and URLs
 - `stage`, `unstage`, `commit` — Stage and commit changes
-- `push`, `pull` — Sync with remotes (protected branches blocked)
+- `push`, `pull` — Sync with remotes (push: force-push to protected branches blocked; pull: normal sync)
 - `checkout` — Switch branch or restore file
 - `create_branch`, `delete_branch` — Branch management
 - `merge` — Merge a branch into current (cannot merge into protected branches)
