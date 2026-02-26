@@ -1,6 +1,6 @@
 # Git Mind MCP
 
-**MCP server for Git intelligence** — status, diff, blame, branches, merge, stage, commit, push, pull, checkout, stash, branching. Works with any MCP-compatible client (Cursor, Claude Desktop, [LibreChat](https://librechat.ai), etc.).
+**MCP server for Git intelligence** — status, diff, blame, branch management, stage, commit, push, pull, checkout, merge, stash. Works with any MCP-compatible client (Cursor, Claude Desktop, [LibreChat](https://librechat.ai), etc.).
 
 > **[Roadmap](ROADMAP.md)** — Planned features, phases, and timeline.
 

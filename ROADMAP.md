@@ -6,7 +6,7 @@ A powerful MCP server for Git actions — enabling AI assistants (Cursor, Claude
 
 ## Vision
 
-Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. It provides read operations (status, diff, blame, branches) and write workflows (stage, commit, push, pull, checkout, merge, branching) with built-in guardrails to prevent destructive operations.
+Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. It provides read operations (status, diff, blame, branches) and write workflows (stage, unstage, commit, push, pull, checkout, merge, stash, branching) with built-in guardrails to prevent destructive operations.
 
 ---
 
@@ -60,7 +60,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - ~~Unit tests for push, pull, checkout, create_branch, delete_branch~~ ✅
 
 ### Phase 3 — Merge, Stash & Polish  
-*Target: ~1 week* ✅ (merge done)
+*Target: ~1 week* ✅ (merge and stash done)
 
 - ~~`merge`~~ ✅
 - ~~`stash` (push/pop/list)~~ ✅
