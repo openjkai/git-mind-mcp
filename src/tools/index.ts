@@ -15,6 +15,7 @@ import { registerCheckout } from "./checkout";
 import { registerCreateBranch } from "./create-branch";
 import { registerDeleteBranch } from "./delete-branch";
 import { registerMerge } from "./merge";
+import { registerStash } from "./stash";
 
 export function registerAllTools(server: McpServer): void {
   registerGetStatus(server);
@@ -33,4 +34,5 @@ export function registerAllTools(server: McpServer): void {
   registerCreateBranch(server);
   registerDeleteBranch(server);
   registerMerge(server);
+  registerStash(server);
 }

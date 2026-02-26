@@ -4,6 +4,12 @@
 
 ### Added
 
+- `stash` — Stash working changes (push/pop/list)
+
+## [1.1.0] - 2025-02-25
+
+### Added
+
 - `get_remotes` — List remotes and URLs
 - `stage`, `unstage`, `commit` — Stage and commit changes
 - `push`, `pull` — Sync with remotes (push: force-push to protected branches blocked; pull: normal sync)
