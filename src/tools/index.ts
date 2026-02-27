@@ -16,6 +16,8 @@ import { registerCreateBranch } from "./create-branch";
 import { registerDeleteBranch } from "./delete-branch";
 import { registerMerge } from "./merge";
 import { registerStash } from "./stash";
+import { registerFetch } from "./fetch";
+import { registerReset } from "./reset";
 
 export function registerAllTools(server: McpServer): void {
   registerGetStatus(server);
@@ -35,4 +37,6 @@ export function registerAllTools(server: McpServer): void {
   registerDeleteBranch(server);
   registerMerge(server);
   registerStash(server);
+  registerFetch(server);
+  registerReset(server);
 }

@@ -3,7 +3,7 @@ import { registerAllTools } from "../../src/tools/index";
 import { createMockServer } from "./helpers";
 
 describe("tool registration", () => {
-  it("registers all 17 tools", () => {
+  it("registers all 19 tools", () => {
     const mockServer = createMockServer();
     registerAllTools(mockServer);
 
@@ -25,6 +25,8 @@ describe("tool registration", () => {
       "delete_branch",
       "merge",
       "stash",
+      "fetch",
+      "reset",
     ];
 
     for (const name of expectedTools) {

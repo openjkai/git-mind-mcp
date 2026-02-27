@@ -1,6 +1,6 @@
 # Git Mind MCP
 
-**MCP server for Git intelligence** — status, diff, blame, branch management, stage, commit, push, pull, checkout, merge, stash. Works with any MCP-compatible client (Cursor, Claude Desktop, [LibreChat](https://librechat.ai), etc.).
+**MCP server for Git intelligence** — status, diff, blame, branches, merge, stage, commit, push, pull, checkout, stash, fetch, reset. Works with any MCP-compatible client (Cursor, Claude Desktop, [LibreChat](https://librechat.ai), etc.).
 
 > **[Roadmap](ROADMAP.md)** — Planned features, phases, and timeline.
 
@@ -26,9 +26,11 @@
 - `delete_branch` — Delete local branch (protected branches blocked)
 - `merge` — Merge a branch into the current branch (cannot merge into protected branches)
 - `stash` — Stash changes (push/pop/list)
+- `fetch` — Fetch from remote (updates refs, no merge)
+- `reset` — Reset HEAD (soft/mixed only; --hard blocked)
 
 **Configuration** (environment variables)
-- `GIT_MIND_ALLOWED_ACTIONS` — Comma-separated list of allowed operations (default: `stage,unstage,commit`). Add `push,pull,checkout,create_branch,delete_branch,merge,stash` to enable sync, branching, merge, and stash.
+- `GIT_MIND_ALLOWED_ACTIONS` — Comma-separated list of allowed operations (default: `stage,unstage,commit`). Add `push,pull,checkout,create_branch,delete_branch,merge,stash,fetch,reset` to enable sync, branching, merge, stash, fetch, and reset.
 - `GIT_MIND_PROTECTED_BRANCHES` — Branches to protect from push/delete/merge (default: `main,master`)
 - `GIT_MIND_STRICT_MODE` — Set to `1` to disable force operations
 
