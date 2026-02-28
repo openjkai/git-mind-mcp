@@ -77,12 +77,17 @@ For submodule or local development setup, see [LibreChat Integration](docs/integ
 
 ## Development
 
+Requires **Node.js >= 22**. Use [nvm](https://github.com/nvm-sh/nvm) (or fnm, asdf) for version management:
+
 ```bash
+nvm use          # or: fnm use / asdf install
 npm install
 npm run build
 npm run dev    # Run with tsx (no build needed)
 npm test
 ```
+
+`.nvmrc` and `.node-version` specify Node 22 for nvm/fnm/asdf.
 
 ## License
 
