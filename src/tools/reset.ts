@@ -11,7 +11,13 @@ const ResetArgsSchema = z.object({
     .enum(["soft", "mixed"])
     .default("mixed")
     .describe("soft: keep changes staged; mixed: unstage but keep working tree (default)"),
-  ref: z.string().describe("Commit to reset to (e.g. HEAD~1, abc1234, branch-name)"),
+  ref: z
+    .string()
+    .describe("Commit to reset to (e.g. HEAD~1, abc1234, branch-name)")
+    .refine((val) => !val.startsWith("-"), { message: "Ref must not start with '-' (git flag injection)" })
+    .refine((val) => !/^\s/.test(val), { message: "Ref must not have leading whitespace" })
+    .refine((val) => !val.includes("--"), { message: "Ref must not contain '--'" })
+    .refine((val) => !/[\0\n]/.test(val), { message: "Ref must not contain null or newline" }),
 });
 
 export function registerReset(server: McpServer): void {

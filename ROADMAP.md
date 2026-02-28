@@ -65,16 +65,16 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - ~~Unit tests for push, pull, checkout, create_branch, delete_branch~~ ✅
 
 ### Phase 3 — Merge, Stash & Polish  
-*Target: ~1 week* ✅ (merge, stash, reset, fetch done)
+*Target: ~1 week* 🟡 Partially Complete (merge, stash, reset, fetch done)
 
 - ~~`merge`~~ ✅
 - ~~`stash` (push/pop/list)~~ ✅
 - ~~`reset` (soft/mixed only)~~ ✅
 - ~~`fetch`~~ ✅
-- Optional `force_push` behind config flag
-- Dry-run support for critical ops
-- Client setup docs: Cursor, Claude, ChatGPT
-- Integration tests for remote operations (optional)
+- *Deferred:* Optional `force_push` behind config flag
+- *Deferred:* Dry-run support for critical ops
+- *Deferred:* Client setup docs: Cursor, Claude, ChatGPT
+- *Deferred:* Integration tests for remote operations (optional)
 
 ### Phase 4 — Release & Iteration  
 *Target: Ongoing*
