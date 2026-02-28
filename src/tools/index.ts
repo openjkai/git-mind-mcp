@@ -18,6 +18,9 @@ import { registerMerge } from "./merge";
 import { registerStash } from "./stash";
 import { registerFetch } from "./fetch";
 import { registerReset } from "./reset";
+import { registerCherryPick } from "./cherry-pick";
+import { registerRevert } from "./revert";
+import { registerTag } from "./tag";
 
 export function registerAllTools(server: McpServer): void {
   registerGetStatus(server);
@@ -39,4 +42,7 @@ export function registerAllTools(server: McpServer): void {
   registerStash(server);
   registerFetch(server);
   registerReset(server);
+  registerCherryPick(server);
+  registerRevert(server);
+  registerTag(server);
 }

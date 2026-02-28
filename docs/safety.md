@@ -14,15 +14,15 @@ All safety settings are controlled via environment variables (`GIT_MIND_*`).
 
 ## Operation Allowlist
 
-Only operations listed in `GIT_MIND_ALLOWED_ACTIONS` can execute. Default is `stage,unstage,commit`. To enable push, pull, branching, merge, stash, fetch, and reset:
+Only operations listed in `GIT_MIND_ALLOWED_ACTIONS` can execute. Default is `stage,unstage,commit`. To enable push, pull, branching, merge, stash, fetch, reset, cherry_pick, revert, and tag:
 
 ```bash
-export GIT_MIND_ALLOWED_ACTIONS=stage,unstage,commit,push,pull,checkout,create_branch,delete_branch,merge,stash,fetch,reset
+export GIT_MIND_ALLOWED_ACTIONS=stage,unstage,commit,push,pull,checkout,create_branch,delete_branch,merge,stash,fetch,reset,cherry_pick,revert,tag
 ```
 
 ## Protected Branches
 
-`push`, `delete_branch`, and `merge` enforce protected branches: you cannot force-push to, delete, or merge into `main`/`master` (or any branch in `GIT_MIND_PROTECTED_BRANCHES`). Normal pushes to protected branches and merges where the protected branch is the source (e.g., merging `main` into a feature branch) are allowed. Configure or remove branches to customize.
+`push`, `delete_branch`, `merge`, `cherry_pick`, and `revert` enforce protected branches: you cannot force-push to, delete, merge into, cherry-pick into, or revert on `main`/`master` (or any branch in `GIT_MIND_PROTECTED_BRANCHES`). Normal pushes to protected branches and merges where the protected branch is the source (e.g., merging `main` into a feature branch) are allowed. Configure or remove branches to customize.
 
 ## Reset
 

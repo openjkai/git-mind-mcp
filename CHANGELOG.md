@@ -7,6 +7,9 @@
 - `stash` — Stash working changes (push/pop/list)
 - `fetch` — Fetch from remote (updates refs without merge)
 - `reset` — Reset HEAD (soft/mixed only; --hard explicitly blocked)
+- `cherry_pick` — Apply a commit onto current branch (protected branches blocked)
+- `revert` — Create revert commit (protected branches blocked)
+- `tag` — List tags or create lightweight/annotated tag
 
 ## [1.1.0] - 2025-02-25
 
