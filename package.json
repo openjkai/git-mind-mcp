@@ -1,7 +1,7 @@
 {
   "name": "git-mind-mcp",
-  "version": "1.0.0",
-  "description": "MCP server for Git intelligence - status, diff, blame, branches, stage, commit, push, pull, checkout, branching. Works with any MCP client (Cursor, Claude, LibreChat).",
+  "version": "1.1.0",
+  "description": "MCP server for Git intelligence - status, diff, blame, branches, merge, stage, commit, push, pull, checkout, branching. Works with any MCP client (Cursor, Claude, LibreChat).",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
@@ -34,7 +34,7 @@
     "url": "https://github.com/your-username/git-mind-mcp.git"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.26.0",
@@ -42,7 +42,7 @@
     "zod": "^3.23.0"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
+    "@types/node": "^22.0.0",
     "tsup": "^8.5.1",
     "tsx": "^4.0.0",
     "typescript": "^5.3.0",

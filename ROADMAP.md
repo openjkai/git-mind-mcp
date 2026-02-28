@@ -6,7 +6,7 @@ A powerful MCP server for Git actions — enabling AI assistants (Cursor, Claude
 
 ## Vision
 
-Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. It provides read operations (status, diff, blame, branches) and write workflows (stage, commit, push, pull, checkout, branching) with built-in guardrails to prevent destructive operations.
+Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. It provides read operations (status, diff, blame, branches) and write workflows (stage, unstage, commit, push, pull, checkout, merge, stash, fetch, reset, cherry_pick, revert, tag, branching) with built-in guardrails to prevent destructive operations.
 
 ---
 
@@ -15,7 +15,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | Area | Status |
 |------|--------|
 | Read tools | ✅ Complete |
-| Write tools | ✅ stage, unstage, commit, push, pull, checkout, create_branch, delete_branch |
+| Write tools | ✅ stage, unstage, commit, push, pull, checkout, create_branch, delete_branch, merge, stash, fetch, reset, cherry_pick, revert, tag |
 | Safety layer | ✅ Config + guard |
 | Private server support | ✅ Via standard Git (SSH/HTTPS) |
 
@@ -36,6 +36,12 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - `checkout` — Switch branch or restore file
 - `create_branch`, `delete_branch` — Branch management (protected branches blocked)
 - `merge` — Merge a branch into current (cannot merge into protected branches)
+- `stash` — Stash working changes (push/pop/list)
+- `fetch` — Fetch from remote (updates refs, no merge)
+- `reset` — Reset HEAD (soft/mixed only; --hard blocked)
+- `cherry_pick` — Apply a commit onto current branch (protected branches blocked)
+- `revert` — Create revert commit (protected branches blocked)
+- `tag` — List tags or create lightweight/annotated tag
 
 ---
 
@@ -59,21 +65,24 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - ~~Unit tests for push, pull, checkout, create_branch, delete_branch~~ ✅
 
 ### Phase 3 — Merge, Stash & Polish  
-*Target: ~1 week*
+*Target: ~1 week* 🟡 Partially Complete (merge, stash, reset, fetch done)
 
 - ~~`merge`~~ ✅
-- `stash` (push/pop/list), `reset` (soft/mixed only)
-- `fetch`, optional `force_push` behind config flag
-- Dry-run support for critical ops
-- Client setup docs: Cursor, Claude, ChatGPT
-- Integration tests for remote operations (optional)
+- ~~`stash` (push/pop/list)~~ ✅
+- ~~`reset` (soft/mixed only)~~ ✅
+- ~~`fetch`~~ ✅
+- *Deferred:* Optional `force_push` behind config flag
+- *Deferred:* Dry-run support for critical ops
+- *Deferred:* Client setup docs: Cursor, Claude, ChatGPT
+- *Deferred:* Integration tests for remote operations (optional)
 
 ### Phase 4 — Release & Iteration  
 *Target: Ongoing*
 
 - npm publish, changelog, contribution guide
 - Community feedback and iteration
-- Optional: config file, `cherry_pick`, `revert`, `tag`
+- ~~`cherry_pick`, `revert`, `tag`~~ ✅
+- Optional: config file
 
 ---
 
@@ -97,9 +106,12 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | create_branch | ✅ | Low |
 | delete_branch | ✅ | Medium |
 | merge | ✅ | Medium |
-| stash | 🔲 | Low |
-| reset | 🔲 | Medium/High |
-| fetch | 🔲 | Low |
+| stash | ✅ | Low |
+| reset | ✅ | Medium (soft/mixed only) |
+| fetch | ✅ | Low |
+| cherry_pick | ✅ | Medium |
+| revert | ✅ | Medium |
+| tag | ✅ | Low |
 | force_push | 🔲 | High |
 
 ---
@@ -121,4 +133,4 @@ See [docs/safety.md](docs/safety.md) for details.
 
 ---
 
-*Last updated: February 2025*
+*Last updated: February 25, 2025*

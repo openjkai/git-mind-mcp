@@ -18,7 +18,7 @@ if (repoPathArg) {
 
 const server = new McpServer({
   name: "git-mind-mcp",
-  version: "1.0.0",
+  version: "1.1.0",
 });
 
 registerAllTools(server);

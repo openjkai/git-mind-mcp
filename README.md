@@ -1,6 +1,6 @@
 # Git Mind MCP
 
-**MCP server for Git intelligence** — status, diff, blame, branches, merge, stage, commit, push, pull, checkout, branching. Works with any MCP-compatible client (Cursor, Claude Desktop, [LibreChat](https://librechat.ai), etc.).
+**MCP server for Git intelligence** — status, diff, blame, branches, merge, stage, commit, push, pull, checkout, stash, fetch, reset, cherry_pick, revert, tag. Works with any MCP-compatible client (Cursor, Claude Desktop, [LibreChat](https://librechat.ai), etc.).
 
 > **[Roadmap](ROADMAP.md)** — Planned features, phases, and timeline.
 
@@ -25,9 +25,15 @@
 - `create_branch` — Create and optionally checkout a branch
 - `delete_branch` — Delete local branch (protected branches blocked)
 - `merge` — Merge a branch into the current branch (cannot merge into protected branches)
+- `stash` — Stash changes (push/pop/list)
+- `fetch` — Fetch from remote (updates refs, no merge)
+- `reset` — Reset HEAD (soft/mixed only; --hard blocked)
+- `cherry_pick` — Apply a commit onto current branch (protected branches blocked)
+- `revert` — Create revert commit (protected branches blocked)
+- `tag` — List tags or create lightweight/annotated tag
 
 **Configuration** (environment variables)
-- `GIT_MIND_ALLOWED_ACTIONS` — Comma-separated list of allowed operations (default: `stage,unstage,commit`). Add `push,pull,checkout,create_branch,delete_branch,merge` to enable sync, branching, and merge.
+- `GIT_MIND_ALLOWED_ACTIONS` — Comma-separated list of allowed operations (default: `stage,unstage,commit`). Add `push,pull,checkout,create_branch,delete_branch,merge,stash,fetch,reset,cherry_pick,revert,tag` to enable sync, branching, merge, stash, fetch, reset, cherry_pick, revert, and tag.
 - `GIT_MIND_PROTECTED_BRANCHES` — Branches to protect from push/delete/merge (default: `main,master`)
 - `GIT_MIND_STRICT_MODE` — Set to `1` to disable force operations
 
@@ -71,12 +77,17 @@ For submodule or local development setup, see [LibreChat Integration](docs/integ
 
 ## Development
 
+Requires **Node.js >= 22**. Use [nvm](https://github.com/nvm-sh/nvm) (or fnm, asdf) for version management:
+
 ```bash
+nvm use          # or: fnm use / asdf install
 npm install
 npm run build
 npm run dev    # Run with tsx (no build needed)
 npm test
 ```
+
+`.nvmrc` and `.node-version` specify Node 22 for nvm/fnm/asdf.
 
 ## License
 
