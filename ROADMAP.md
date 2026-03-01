@@ -65,7 +65,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - ~~Unit tests for push, pull, checkout, create_branch, delete_branch~~ ✅
 
 ### Phase 3 — Merge, Stash & Polish  
-*Target: ~1 week* 🟡 Partially Complete (merge, stash, reset, fetch done)
+*Target: ~1 week* 🟡 Partially Complete (merge, stash, reset, fetch, force_push done)
 
 - ~~`merge`~~ ✅
 - ~~`stash` (push/pop/list)~~ ✅

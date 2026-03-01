@@ -5,7 +5,7 @@ Configure Git Mind MCP as an MCP server in [LibreChat](https://librechat.ai) for
 ## Prerequisites
 
 - LibreChat installed and running
-- Node.js 18+
+- Node.js 22+
 - Git repository you want the AI to inspect
 
 ## Configuration

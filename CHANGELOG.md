@@ -4,6 +4,16 @@
 
 ### Added
 
+- (none)
+
+## [2.0.0] - 2025-03-01
+
+### BREAKING CHANGES
+
+- **Node.js 22+ required** — Minimum Node version raised from 18/20 to 22. Rationale: alignment with Node 22 LTS, improved performance, and native ESM stability. **Migration:** Upgrade to Node 22+ (e.g. `nvm install 22`), or stay on v1.x if you need Node 20 support.
+
+### Added
+
 - `stash` — Stash working changes (push/pop/list)
 - `fetch` — Fetch from remote (updates refs without merge)
 - `reset` — Reset HEAD (soft/mixed only; --hard explicitly blocked)
