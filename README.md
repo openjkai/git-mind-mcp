@@ -20,6 +20,7 @@
 - `unstage` — Unstage files (git reset)
 - `commit` — Create a commit with staged changes
 - `push` — Push to remote (protected branches blocked)
+- `force_push` — Force push (opt-in via GIT_MIND_ALLOWED_ACTIONS; protected branches blocked)
 - `pull` — Pull from remote
 - `checkout` — Switch branch or restore file
 - `create_branch` — Create and optionally checkout a branch
@@ -33,7 +34,7 @@
 - `tag` — List tags or create lightweight/annotated tag
 
 **Configuration** (environment variables)
-- `GIT_MIND_ALLOWED_ACTIONS` — Comma-separated list of allowed operations (default: `stage,unstage,commit`). Add `push,pull,checkout,create_branch,delete_branch,merge,stash,fetch,reset,cherry_pick,revert,tag` to enable sync, branching, merge, stash, fetch, reset, cherry_pick, revert, and tag.
+- `GIT_MIND_ALLOWED_ACTIONS` — Comma-separated list of allowed operations (default: `stage,unstage,commit`). Add `push,force_push,pull,checkout,create_branch,delete_branch,merge,stash,fetch,reset,cherry_pick,revert,tag` to enable sync, branching, merge, stash, fetch, reset, cherry_pick, revert, tag, and optional force_push.
 - `GIT_MIND_PROTECTED_BRANCHES` — Branches to protect from push/delete/merge (default: `main,master`)
 - `GIT_MIND_STRICT_MODE` — Set to `1` to disable force operations
 

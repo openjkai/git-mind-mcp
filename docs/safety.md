@@ -14,15 +14,15 @@ All safety settings are controlled via environment variables (`GIT_MIND_*`).
 
 ## Operation Allowlist
 
-Only operations listed in `GIT_MIND_ALLOWED_ACTIONS` can execute. Default is `stage,unstage,commit`. To enable push, pull, branching, merge, stash, fetch, reset, cherry_pick, revert, and tag:
+Only operations listed in `GIT_MIND_ALLOWED_ACTIONS` can execute. Default is `stage,unstage,commit`. To enable push, pull, branching, merge, stash, fetch, reset, cherry_pick, revert, tag, and optional force_push:
 
 ```bash
-export GIT_MIND_ALLOWED_ACTIONS=stage,unstage,commit,push,pull,checkout,create_branch,delete_branch,merge,stash,fetch,reset,cherry_pick,revert,tag
+export GIT_MIND_ALLOWED_ACTIONS=stage,unstage,commit,push,force_push,pull,checkout,create_branch,delete_branch,merge,stash,fetch,reset,cherry_pick,revert,tag
 ```
 
 ## Protected Branches
 
-`push`, `delete_branch`, `merge`, `cherry_pick`, and `revert` enforce protected branches: you cannot force-push to, delete, merge into, cherry-pick into, or revert on `main`/`master` (or any branch in `GIT_MIND_PROTECTED_BRANCHES`). Normal pushes to protected branches and merges where the protected branch is the source (e.g., merging `main` into a feature branch) are allowed. Configure or remove branches to customize.
+`push`, `force_push`, `delete_branch`, `merge`, `cherry_pick`, and `revert` enforce protected branches: you cannot force-push to, delete, merge into, cherry-pick into, or revert on `main`/`master` (or any branch in `GIT_MIND_PROTECTED_BRANCHES`). Normal pushes to protected branches and merges where the protected branch is the source (e.g., merging `main` into a feature branch) are allowed. The `force_push` tool is opt-in and must be explicitly added to `GIT_MIND_ALLOWED_ACTIONS`. Configure or remove branches to customize.
 
 ## Reset
 
@@ -30,4 +30,4 @@ The `reset` tool only allows soft and mixed modes; `--hard` is explicitly blocke
 
 ## Strict Mode
 
-When `GIT_MIND_STRICT_MODE=1`, force operations (e.g. `push --force`) are disabled regardless of other settings.
+When `GIT_MIND_STRICT_MODE=1`, force operations (e.g. `push --force`, `force_push`) are disabled regardless of other settings.
