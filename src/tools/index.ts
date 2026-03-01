@@ -10,6 +10,7 @@ import { registerStage } from "./stage";
 import { registerUnstage } from "./unstage";
 import { registerCommit } from "./commit";
 import { registerPush } from "./push";
+import { registerForcePush } from "./force-push";
 import { registerPull } from "./pull";
 import { registerCheckout } from "./checkout";
 import { registerCreateBranch } from "./create-branch";
@@ -34,6 +35,7 @@ export function registerAllTools(server: McpServer): void {
   registerUnstage(server);
   registerCommit(server);
   registerPush(server);
+  registerForcePush(server);
   registerPull(server);
   registerCheckout(server);
   registerCreateBranch(server);

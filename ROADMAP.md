@@ -15,7 +15,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | Area | Status |
 |------|--------|
 | Read tools | ✅ Complete |
-| Write tools | ✅ stage, unstage, commit, push, pull, checkout, create_branch, delete_branch, merge, stash, fetch, reset, cherry_pick, revert, tag |
+| Write tools | ✅ stage, unstage, commit, push, force_push, pull, checkout, create_branch, delete_branch, merge, stash, fetch, reset, cherry_pick, revert, tag |
 | Safety layer | ✅ Config + guard |
 | Private server support | ✅ Via standard Git (SSH/HTTPS) |
 
@@ -32,7 +32,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 
 **Write**
 - `stage`, `unstage`, `commit` — Stage and commit changes
-- `push`, `pull` — Sync with remotes (guardrails applied)
+- `push`, `force_push`, `pull` — Sync with remotes (guardrails applied; force_push opt-in)
 - `checkout` — Switch branch or restore file
 - `create_branch`, `delete_branch` — Branch management (protected branches blocked)
 - `merge` — Merge a branch into current (cannot merge into protected branches)
@@ -71,7 +71,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - ~~`stash` (push/pop/list)~~ ✅
 - ~~`reset` (soft/mixed only)~~ ✅
 - ~~`fetch`~~ ✅
-- *Deferred:* Optional `force_push` behind config flag
+- ~~Optional `force_push` behind config flag~~ ✅ (add `force_push` to GIT_MIND_ALLOWED_ACTIONS)
 - *Deferred:* Dry-run support for critical ops
 - *Deferred:* Client setup docs: Cursor, Claude, ChatGPT
 - *Deferred:* Integration tests for remote operations (optional)
@@ -112,7 +112,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | cherry_pick | ✅ | Medium |
 | revert | ✅ | Medium |
 | tag | ✅ | Low |
-| force_push | 🔲 | High |
+| force_push | ✅ | High (opt-in via GIT_MIND_ALLOWED_ACTIONS) |
 
 ---
 
