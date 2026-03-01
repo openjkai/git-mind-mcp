@@ -90,6 +90,8 @@ npm test
 
 `.nvmrc` and `.node-version` specify Node 22 for nvm/fnm/asdf.
 
+> **Why Node 22?** We target Node 22 LTS for improved performance, native ESM stability, and alignment with the current Node LTS schedule. If you need Node 20 support, use v1.x.
+
 ## License
 
 MIT
