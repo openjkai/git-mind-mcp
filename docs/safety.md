@@ -4,13 +4,30 @@ Git Mind MCP is designed to be **safe by default**. Write operations are gated b
 
 ## Configuration
 
-All safety settings are controlled via environment variables (`GIT_MIND_*`).
+Safety settings can be set via **optional config file** or **environment variables**. Env vars override config file values.
+
+### Config File (optional)
+
+Place `git-mind.config.json` or `.git-mind.json` in the current working directory, or set `GIT_MIND_CONFIG_FILE` to a custom path:
+
+```json
+{
+  "allowedActions": ["stage", "unstage", "commit", "push", "pull"],
+  "protectedBranches": ["main", "master", "develop"],
+  "strictMode": false
+}
+```
+
+`allowedActions` and `protectedBranches` accept either arrays or comma-separated strings.
+
+### Environment Variables
 
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `GIT_MIND_ALLOWED_ACTIONS` | `stage,unstage,commit` | Comma-separated list of operations that can run |
 | `GIT_MIND_PROTECTED_BRANCHES` | `main,master` | Branches protected from force push, delete, and merge |
 | `GIT_MIND_STRICT_MODE` | `0` | Set to `1` to disable all force operations |
+| `GIT_MIND_CONFIG_FILE` | — | Path to config file (relative to cwd); overrides auto-discovery |
 
 ## Operation Allowlist
 

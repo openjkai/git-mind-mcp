@@ -1,18 +1,21 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { resolve } from "path";
 
 describe("config", () => {
   const originalEnv = process.env;
+  const fixturesDir = resolve(process.cwd(), "__tests__/fixtures");
 
   beforeEach(() => {
     vi.resetModules();
     process.env = { ...originalEnv };
+    delete process.env.GIT_MIND_CONFIG_FILE;
   });
 
   afterEach(() => {
     process.env = originalEnv;
   });
 
-  it("loads default config when no env vars set", async () => {
+  it("loads default config when no env vars and no config file", async () => {
     delete process.env.GIT_MIND_ALLOWED_ACTIONS;
     delete process.env.GIT_MIND_PROTECTED_BRANCHES;
     delete process.env.GIT_MIND_STRICT_MODE;
@@ -44,5 +47,47 @@ describe("config", () => {
     const config = loadConfig();
 
     expect(config.strictMode).toBe(true);
+  });
+
+  it("loads config from file when GIT_MIND_CONFIG_FILE is set", async () => {
+    delete process.env.GIT_MIND_ALLOWED_ACTIONS;
+    delete process.env.GIT_MIND_PROTECTED_BRANCHES;
+    delete process.env.GIT_MIND_STRICT_MODE;
+    process.env.GIT_MIND_CONFIG_FILE = resolve(fixturesDir, "git-mind.config.json");
+
+    const { loadConfig } = await import("../src/config/index");
+    const config = loadConfig();
+
+    expect(config.allowedActions).toEqual(["stage", "unstage", "commit", "push", "pull"]);
+    expect(config.protectedBranches).toEqual(["main", "master", "develop"]);
+    expect(config.strictMode).toBe(false);
+  });
+
+  it("loads config from file with string arrays (comma-separated)", async () => {
+    delete process.env.GIT_MIND_ALLOWED_ACTIONS;
+    delete process.env.GIT_MIND_PROTECTED_BRANCHES;
+    delete process.env.GIT_MIND_STRICT_MODE;
+    process.env.GIT_MIND_CONFIG_FILE = resolve(fixturesDir, "git-mind-strict.json");
+
+    const { loadConfig } = await import("../src/config/index");
+    const config = loadConfig();
+
+    expect(config.allowedActions).toEqual(["stage", "unstage", "commit", "push"]);
+    expect(config.protectedBranches).toEqual(["main"]);
+    expect(config.strictMode).toBe(true);
+  });
+
+  it("env vars override config file", async () => {
+    process.env.GIT_MIND_CONFIG_FILE = resolve(fixturesDir, "git-mind.config.json");
+    process.env.GIT_MIND_ALLOWED_ACTIONS = "stage,commit";
+    process.env.GIT_MIND_PROTECTED_BRANCHES = "main";
+    delete process.env.GIT_MIND_STRICT_MODE;
+
+    const { loadConfig } = await import("../src/config/index");
+    const config = loadConfig();
+
+    expect(config.allowedActions).toEqual(["stage", "commit"]);
+    expect(config.protectedBranches).toEqual(["main"]);
+    expect(config.strictMode).toBe(false);
   });
 });
