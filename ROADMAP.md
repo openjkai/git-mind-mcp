@@ -10,13 +10,20 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 
 ---
 
+## New Feature for Today
+*March 2, 2026*
+
+- ~~Optional config file~~ ✅ — Load config from `git-mind.config.json` or `.git-mind.json`; env vars override; supports `GIT_MIND_CONFIG_FILE` for custom path
+
+---
+
 ## Current Status
 
 | Area | Status |
 |------|--------|
 | Read tools | ✅ Complete |
 | Write tools | ✅ stage, unstage, commit, push, force_push, pull, checkout, create_branch, delete_branch, merge, stash, fetch, reset, cherry_pick, revert, tag |
-| Safety layer | ✅ Config + guard |
+| Safety layer | ✅ Config file + env + guard |
 | Private server support | ✅ Via standard Git (SSH/HTTPS) |
 
 ### Available Now
@@ -82,7 +89,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - npm publish, changelog, contribution guide
 - Community feedback and iteration
 - ~~`cherry_pick`, `revert`, `tag`~~ ✅
-- Optional: config file
+- ~~Optional: config file~~ ✅
 
 ---
 
@@ -133,4 +140,4 @@ See [docs/safety.md](docs/safety.md) for details.
 
 ---
 
-*Last updated: February 25, 2025*
+*Last updated: March 2, 2026*

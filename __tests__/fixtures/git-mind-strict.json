@@ -1,0 +1,5 @@
+{
+  "allowedActions": "stage,unstage,commit,push",
+  "protectedBranches": "main",
+  "strictMode": true
+}
