@@ -38,6 +38,11 @@
 - `GIT_MIND_ALLOWED_ACTIONS` — Comma-separated list of allowed operations (default: `stage,unstage,commit`). Add `push,force_push,pull,checkout,create_branch,delete_branch,merge,stash,fetch,reset,cherry_pick,revert,tag` to enable sync, branching, merge, stash, fetch, reset, cherry_pick, revert, tag, and optional force_push.
 - `GIT_MIND_PROTECTED_BRANCHES` — Branches to protect from push/delete/merge (default: `main,master`)
 - `GIT_MIND_STRICT_MODE` — Set to `1` to disable force operations
+- `GIT_MIND_DRY_RUN` — Set to `1` to simulate critical ops (push, pull, merge, delete_branch, reset, cherry_pick, revert) without executing
+
+## Client Setup
+
+- [Cursor](docs/setup/cursor.md) — [Claude Desktop](docs/setup/claude-desktop.md) — [ChatGPT](docs/setup/chatgpt.md) — [LibreChat](docs/integrations/librechat.md)
 
 ## Installation
 

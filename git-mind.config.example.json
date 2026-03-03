@@ -1,5 +1,6 @@
 {
   "allowedActions": ["stage", "unstage", "commit", "push", "pull", "checkout", "create_branch", "delete_branch", "merge", "stash", "fetch", "reset", "cherry_pick", "revert", "tag"],
   "protectedBranches": ["main", "master"],
-  "strictMode": false
+  "strictMode": false,
+  "dryRun": false
 }

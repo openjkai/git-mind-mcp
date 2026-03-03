@@ -8,6 +8,7 @@ vi.mock("../../src/lib/git", () => ({
 
 vi.mock("../../src/lib/guard", () => ({
   checkOperationAllowed: vi.fn(),
+  isDryRun: vi.fn().mockReturnValue(false),
 }));
 
 import { getGit } from "../../src/lib/git";

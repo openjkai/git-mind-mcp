@@ -18,7 +18,7 @@ Place `git-mind.config.json` or `.git-mind.json` in the current working director
 }
 ```
 
-`allowedActions` and `protectedBranches` accept either arrays or comma-separated strings.
+`allowedActions`, `protectedBranches`, and `dryRun` accept arrays/strings or boolean respectively.
 
 ### Environment Variables
 
@@ -27,6 +27,7 @@ Place `git-mind.config.json` or `.git-mind.json` in the current working director
 | `GIT_MIND_ALLOWED_ACTIONS` | `stage,unstage,commit` | Comma-separated list of operations that can run |
 | `GIT_MIND_PROTECTED_BRANCHES` | `main,master` | Branches protected from force push, delete, and merge |
 | `GIT_MIND_STRICT_MODE` | `0` | Set to `1` to disable all force operations |
+| `GIT_MIND_DRY_RUN` | `0` | Set to `1` to simulate critical ops (push, pull, merge, delete_branch, reset, cherry_pick, revert) without executing |
 | `GIT_MIND_CONFIG_FILE` | — | Path to config file (relative to cwd); overrides auto-discovery |
 
 ## Operation Allowlist

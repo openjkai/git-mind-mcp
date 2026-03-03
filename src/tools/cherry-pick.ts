@@ -3,7 +3,7 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { getGit, toLocalBranchName, validateRepo } from "../lib/git";
 import { textResponse } from "../lib/response";
 import { formatGitError } from "../lib/format-git-error";
-import { checkOperationAllowed, isProtectedBranch } from "../lib/guard";
+import { checkOperationAllowed, isDryRun, isProtectedBranch } from "../lib/guard";
 
 const CherryPickArgsSchema = z.object({
   repoPath: z.string().optional().describe("Path to the git repository"),
@@ -29,6 +29,12 @@ export function registerCherryPick(server: McpServer): void {
         }
 
         const parsed = CherryPickArgsSchema.parse(args);
+        if (isDryRun()) {
+          return textResponse(
+            `[DRY RUN] Would execute: cherry-pick ${parsed.commit}`,
+          );
+        }
+
         const git = getGit(parsed.repoPath);
         await validateRepo(parsed.repoPath);
 

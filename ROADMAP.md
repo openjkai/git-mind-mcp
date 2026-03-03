@@ -14,6 +14,8 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 *March 2, 2026*
 
 - ~~Optional config file~~ ✅ — Load config from `git-mind.config.json` or `.git-mind.json`; env vars override; supports `GIT_MIND_CONFIG_FILE` for custom path
+- ~~Dry-run support for critical ops~~ ✅ — `GIT_MIND_DRY_RUN=1` simulates push, pull, merge, delete_branch, reset, cherry_pick, revert
+- ~~Client setup docs~~ ✅ — Cursor, Claude Desktop, ChatGPT setup guides in `docs/setup/`
 
 ---
 
@@ -72,15 +74,15 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - ~~Unit tests for push, pull, checkout, create_branch, delete_branch~~ ✅
 
 ### Phase 3 — Merge, Stash & Polish  
-*Target: ~1 week* 🟡 Partially Complete (merge, stash, reset, fetch, force_push done)
+*Target: ~1 week* ✅ Complete
 
 - ~~`merge`~~ ✅
 - ~~`stash` (push/pop/list)~~ ✅
 - ~~`reset` (soft/mixed only)~~ ✅
 - ~~`fetch`~~ ✅
 - ~~Optional `force_push` behind config flag~~ ✅ (add `force_push` to GIT_MIND_ALLOWED_ACTIONS)
-- *Deferred:* Dry-run support for critical ops
-- *Deferred:* Client setup docs: Cursor, Claude, ChatGPT
+- ~~Dry-run support for critical ops~~ ✅ (`GIT_MIND_DRY_RUN=1`)
+- ~~Client setup docs: Cursor, Claude, ChatGPT~~ ✅
 - *Deferred:* Integration tests for remote operations (optional)
 
 ### Phase 4 — Release & Iteration  

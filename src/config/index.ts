@@ -18,6 +18,7 @@ export interface Config {
   allowedActions: string[];
   protectedBranches: string[];
   strictMode: boolean;
+  dryRun: boolean;
 }
 
 const DEFAULT_ALLOWED = ["stage", "unstage", "commit"];
@@ -37,6 +38,7 @@ const ConfigFileSchema = z.object({
     ])
     .optional(),
   strictMode: z.boolean().optional(),
+  dryRun: z.boolean().optional(),
 });
 
 type ConfigFileInput = z.infer<typeof ConfigFileSchema>;
@@ -90,6 +92,9 @@ function parseConfigFile(data: ConfigFileInput): Partial<Config> {
   if (data.strictMode !== undefined) {
     out.strictMode = Boolean(data.strictMode);
   }
+  if (data.dryRun !== undefined) {
+    out.dryRun = Boolean(data.dryRun);
+  }
   return out;
 }
 
@@ -99,6 +104,7 @@ export function loadConfig(): Config {
   const allowedEnv = process.env.GIT_MIND_ALLOWED_ACTIONS;
   const protectedEnv = process.env.GIT_MIND_PROTECTED_BRANCHES;
   const strictEnv = process.env.GIT_MIND_STRICT_MODE;
+  const dryRunEnv = process.env.GIT_MIND_DRY_RUN;
 
   return {
     allowedActions:
@@ -117,6 +123,10 @@ export function loadConfig(): Config {
       strictEnv === "1" || strictEnv?.toLowerCase() === "true"
         ? true
         : fileConfig?.strictMode ?? false,
+    dryRun:
+      dryRunEnv === "1" || dryRunEnv?.toLowerCase() === "true"
+        ? true
+        : fileConfig?.dryRun ?? false,
   };
 }
 

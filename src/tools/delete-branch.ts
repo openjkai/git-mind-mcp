@@ -3,7 +3,7 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { getGit, validateRepo } from "../lib/git";
 import { textResponse } from "../lib/response";
 import { formatGitError } from "../lib/format-git-error";
-import { checkOperationAllowed, isProtectedBranch } from "../lib/guard";
+import { checkOperationAllowed, isDryRun, isProtectedBranch } from "../lib/guard";
 
 const DeleteBranchArgsSchema = z.object({
   repoPath: z.string().optional().describe("Path to the git repository"),
@@ -30,6 +30,13 @@ export function registerDeleteBranch(server: McpServer): void {
         }
 
         const parsed = DeleteBranchArgsSchema.parse(args);
+        if (isDryRun()) {
+          const forceSuffix = parsed.force ? " (force)" : "";
+          return textResponse(
+            `[DRY RUN] Would execute: delete branch ${parsed.branch}${forceSuffix}`,
+          );
+        }
+
         const git = getGit(parsed.repoPath);
         await validateRepo(parsed.repoPath);
 

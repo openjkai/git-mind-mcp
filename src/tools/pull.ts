@@ -3,7 +3,7 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { getGit, validateRepo } from "../lib/git";
 import { textResponse } from "../lib/response";
 import { formatGitError } from "../lib/format-git-error";
-import { checkOperationAllowed } from "../lib/guard";
+import { checkOperationAllowed, isDryRun } from "../lib/guard";
 
 const PullArgsSchema = z.object({
   repoPath: z.string().optional().describe("Path to the git repository"),
@@ -30,6 +30,13 @@ export function registerPull(server: McpServer): void {
         }
 
         const parsed = PullArgsSchema.parse(args);
+        if (isDryRun()) {
+          const branchDesc = parsed.branch ?? "current branch";
+          return textResponse(
+            `[DRY RUN] Would execute: pull ${branchDesc} from ${parsed.remote ?? "origin"}`,
+          );
+        }
+
         const git = getGit(parsed.repoPath);
         await validateRepo(parsed.repoPath);
 

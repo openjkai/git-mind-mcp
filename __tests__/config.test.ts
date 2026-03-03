@@ -19,6 +19,7 @@ describe("config", () => {
     delete process.env.GIT_MIND_ALLOWED_ACTIONS;
     delete process.env.GIT_MIND_PROTECTED_BRANCHES;
     delete process.env.GIT_MIND_STRICT_MODE;
+    delete process.env.GIT_MIND_DRY_RUN;
 
     const { loadConfig } = await import("../src/config/index");
     const config = loadConfig();
@@ -75,6 +76,15 @@ describe("config", () => {
     expect(config.allowedActions).toEqual(["stage", "unstage", "commit", "push"]);
     expect(config.protectedBranches).toEqual(["main"]);
     expect(config.strictMode).toBe(true);
+  });
+
+  it("parses GIT_MIND_DRY_RUN", async () => {
+    process.env.GIT_MIND_DRY_RUN = "1";
+
+    const { loadConfig } = await import("../src/config/index");
+    const config = loadConfig();
+
+    expect(config.dryRun).toBe(true);
   });
 
   it("env vars override config file", async () => {

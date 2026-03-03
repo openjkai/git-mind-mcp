@@ -6,6 +6,7 @@ import { formatGitError } from "../lib/format-git-error";
 import {
   checkForceAllowed,
   checkOperationAllowed,
+  isDryRun,
   isProtectedBranch,
 } from "../lib/guard";
 
@@ -43,6 +44,13 @@ export function registerForcePush(server: McpServer): void {
         }
 
         const parsed = ForcePushArgsSchema.parse(args);
+        if (isDryRun()) {
+          const branchDesc = parsed.branch ?? "current branch";
+          return textResponse(
+            `[DRY RUN] Would execute: force push ${branchDesc} to ${parsed.remote ?? "origin"}`,
+          );
+        }
+
         const git = getGit(parsed.repoPath);
         await validateRepo(parsed.repoPath);
 

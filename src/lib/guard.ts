@@ -47,3 +47,10 @@ export function checkForceAllowed(): GuardResult {
   }
   return { allowed: true };
 }
+
+/**
+ * Check if dry-run mode is enabled. When true, critical ops should report "Would execute: ..." and skip.
+ */
+export function isDryRun(): boolean {
+  return getConfig().dryRun;
+}

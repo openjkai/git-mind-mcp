@@ -13,6 +13,7 @@ vi.mock("../../src/lib/git", async (importOriginal) => {
 vi.mock("../../src/lib/guard", () => ({
   checkForceAllowed: vi.fn(),
   checkOperationAllowed: vi.fn(),
+  isDryRun: vi.fn().mockReturnValue(false),
   isProtectedBranch: vi.fn(),
 }));
 

@@ -3,7 +3,7 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { getGit, toLocalBranchName, validateRepo } from "../lib/git";
 import { textResponse } from "../lib/response";
 import { formatGitError } from "../lib/format-git-error";
-import { checkOperationAllowed, isProtectedBranch } from "../lib/guard";
+import { checkOperationAllowed, isDryRun, isProtectedBranch } from "../lib/guard";
 
 const MergeArgsSchema = z.object({
   repoPath: z.string().optional().describe("Path to the git repository"),
@@ -29,6 +29,12 @@ export function registerMerge(server: McpServer): void {
         }
 
         const parsed = MergeArgsSchema.parse(args);
+        if (isDryRun()) {
+          return textResponse(
+            `[DRY RUN] Would execute: merge ${parsed.branch} into current branch`,
+          );
+        }
+
         const git = getGit(parsed.repoPath);
         await validateRepo(parsed.repoPath);
 
