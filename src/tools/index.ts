@@ -22,6 +22,7 @@ import { registerReset } from "./reset";
 import { registerCherryPick } from "./cherry-pick";
 import { registerRevert } from "./revert";
 import { registerTag } from "./tag";
+import { registerRebase } from "./rebase";
 
 export function registerAllTools(server: McpServer): void {
   registerGetStatus(server);
@@ -47,4 +48,5 @@ export function registerAllTools(server: McpServer): void {
   registerCherryPick(server);
   registerRevert(server);
   registerTag(server);
+  registerRebase(server);
 }

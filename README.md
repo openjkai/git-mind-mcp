@@ -32,13 +32,14 @@
 - `cherry_pick` — Apply a commit onto current branch (protected branches blocked)
 - `revert` — Create revert commit (protected branches blocked)
 - `tag` — List tags or create lightweight/annotated tag
+- `rebase` — Rebase current branch onto another (action: rebase/abort/continue; protected branches blocked)
 
 **Configuration** (optional config file + environment variables; env overrides file)
 - **Config file** — Place `git-mind.config.json` or `.git-mind.json` in the working directory (or set `GIT_MIND_CONFIG_FILE`). See [git-mind.config.example.json](git-mind.config.example.json) and [Safety Model](docs/safety.md).
-- `GIT_MIND_ALLOWED_ACTIONS` — Comma-separated list of allowed operations (default: `stage,unstage,commit`). Add `push,force_push,pull,checkout,create_branch,delete_branch,merge,stash,fetch,reset,cherry_pick,revert,tag` to enable sync, branching, merge, stash, fetch, reset, cherry_pick, revert, tag, and optional force_push.
+- `GIT_MIND_ALLOWED_ACTIONS` — Comma-separated list of allowed operations (default: `stage,unstage,commit`). Add `push,force_push,pull,checkout,create_branch,delete_branch,merge,stash,fetch,reset,cherry_pick,revert,tag,rebase` to enable sync, branching, merge, stash, fetch, reset, cherry_pick, revert, tag, rebase, and optional force_push.
 - `GIT_MIND_PROTECTED_BRANCHES` — Branches to protect from push/delete/merge (default: `main,master`)
 - `GIT_MIND_STRICT_MODE` — Set to `1` to disable force operations
-- `GIT_MIND_DRY_RUN` — Set to `1` to simulate critical ops (push, pull, merge, delete_branch, reset, cherry_pick, revert) without executing
+- `GIT_MIND_DRY_RUN` — Set to `1` to simulate critical ops (push, pull, merge, delete_branch, reset, cherry_pick, revert, rebase) without executing
 
 ## Client Setup
 

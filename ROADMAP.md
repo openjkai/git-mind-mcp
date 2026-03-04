@@ -16,6 +16,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - ~~Optional config file~~ ✅ — Load config from `git-mind.config.json` or `.git-mind.json`; env vars override; supports `GIT_MIND_CONFIG_FILE` for custom path
 - ~~Dry-run support for critical ops~~ ✅ — `GIT_MIND_DRY_RUN=1` simulates push, pull, merge, delete_branch, reset, cherry_pick, revert
 - ~~Client setup docs~~ ✅ — Cursor, Claude Desktop, ChatGPT setup guides in `docs/setup/`
+- ~~`rebase` tool~~ ✅ — Rebase current branch onto target; supports abort/continue for conflict resolution
 
 ---
 
@@ -24,7 +25,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | Area | Status |
 |------|--------|
 | Read tools | ✅ Complete |
-| Write tools | ✅ stage, unstage, commit, push, force_push, pull, checkout, create_branch, delete_branch, merge, stash, fetch, reset, cherry_pick, revert, tag |
+| Write tools | ✅ stage, unstage, commit, push, force_push, pull, checkout, create_branch, delete_branch, merge, stash, fetch, reset, cherry_pick, revert, tag, rebase |
 | Safety layer | ✅ Config file + env + guard |
 | Private server support | ✅ Via standard Git (SSH/HTTPS) |
 
@@ -51,6 +52,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - `cherry_pick` — Apply a commit onto current branch (protected branches blocked)
 - `revert` — Create revert commit (protected branches blocked)
 - `tag` — List tags or create lightweight/annotated tag
+- `rebase` — Rebase current branch onto another (rebase/abort/continue; protected branches blocked)
 
 ---
 
@@ -121,6 +123,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | cherry_pick | ✅ | Medium |
 | revert | ✅ | Medium |
 | tag | ✅ | Low |
+| rebase | ✅ | Medium |
 | force_push | ✅ | High (opt-in via GIT_MIND_ALLOWED_ACTIONS) |
 
 ---

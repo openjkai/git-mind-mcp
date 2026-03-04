@@ -21,6 +21,9 @@ export function formatGitError(error: unknown): string {
     if (msg.includes("merge conflict") || msg.includes("CONFLICT")) {
       return "Merge conflict. Resolve conflicts manually, then stage and commit.";
     }
+    if (msg.includes("rebase") && (msg.includes("conflict") || msg.includes("CONFLICT"))) {
+      return "Rebase conflict. Resolve, stage, then use rebase action=continue or action=abort.";
+    }
     if (msg.includes("rejected") && msg.includes("push")) {
       return "Push rejected (non-fast-forward). Pull first or use rebase.";
     }
