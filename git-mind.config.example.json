@@ -1,6 +1,7 @@
 {
-  "allowedActions": ["stage", "unstage", "commit", "push", "pull", "checkout", "create_branch", "delete_branch", "merge", "stash", "fetch", "reset", "cherry_pick", "revert", "tag", "rebase"],
+  "allowedActions": ["stage", "unstage", "commit", "push", "pull", "checkout", "create_branch", "delete_branch", "merge", "stash", "fetch", "reset", "cherry_pick", "revert", "tag", "rebase", "remote"],
   "protectedBranches": ["main", "master"],
+  "protectedRemotes": ["origin"],
   "strictMode": false,
   "dryRun": false
 }

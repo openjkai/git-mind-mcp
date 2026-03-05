@@ -18,7 +18,7 @@ Place `git-mind.config.json` or `.git-mind.json` in the current working director
 }
 ```
 
-`allowedActions`, `protectedBranches`, and `dryRun` accept arrays/strings or boolean respectively.
+`allowedActions`, `protectedBranches`, `protectedRemotes`, and `dryRun` accept arrays/strings or boolean respectively.
 
 ### Environment Variables
 
@@ -26,8 +26,9 @@ Place `git-mind.config.json` or `.git-mind.json` in the current working director
 |----------|---------|-------------|
 | `GIT_MIND_ALLOWED_ACTIONS` | `stage,unstage,commit` | Comma-separated list of operations that can run |
 | `GIT_MIND_PROTECTED_BRANCHES` | `main,master` | Branches protected from force push, delete, and merge |
+| `GIT_MIND_PROTECTED_REMOTES` | `origin` | Remotes protected from removal (config file supports array) |
 | `GIT_MIND_STRICT_MODE` | `0` | Set to `1` to disable all force operations |
-| `GIT_MIND_DRY_RUN` | `0` | Set to `1` to simulate critical ops (push, pull, merge, delete_branch, reset, cherry_pick, revert, rebase) without executing |
+| `GIT_MIND_DRY_RUN` | `0` | Set to `1` to simulate critical ops (push, pull, merge, delete_branch, reset, cherry_pick, revert, rebase, remote) without executing |
 | `GIT_MIND_CONFIG_FILE` | — | Path to config file (relative to cwd); overrides auto-discovery |
 
 ## Operation Allowlist
@@ -35,12 +36,12 @@ Place `git-mind.config.json` or `.git-mind.json` in the current working director
 Only operations listed in `GIT_MIND_ALLOWED_ACTIONS` can execute. Default is `stage,unstage,commit`. To enable push, pull, branching, merge, stash, fetch, reset, cherry_pick, revert, tag, and optional force_push:
 
 ```bash
-export GIT_MIND_ALLOWED_ACTIONS=stage,unstage,commit,push,force_push,pull,checkout,create_branch,delete_branch,merge,stash,fetch,reset,cherry_pick,revert,tag,rebase
+export GIT_MIND_ALLOWED_ACTIONS=stage,unstage,commit,push,force_push,pull,checkout,create_branch,delete_branch,merge,stash,fetch,reset,cherry_pick,revert,tag,rebase,remote
 ```
 
 ## Protected Branches
 
-`push`, `force_push`, `delete_branch`, `merge`, `cherry_pick`, `revert`, and `rebase` enforce protected branches: you cannot force-push to, delete, merge into, cherry-pick into, revert on, or rebase `main`/`master` (or any branch in `GIT_MIND_PROTECTED_BRANCHES`). Normal pushes to protected branches and merges where the protected branch is the source (e.g., merging `main` into a feature branch) are allowed. The `force_push` tool is opt-in and must be explicitly added to `GIT_MIND_ALLOWED_ACTIONS`. Configure or remove branches to customize.
+`push`, `force_push`, `delete_branch`, `merge`, `cherry_pick`, `revert`, and `rebase` enforce protected branches. The `remote` tool enforces protected remotes: you cannot remove `origin` (or remotes in `GIT_MIND_PROTECTED_REMOTES`) by default. Normal pushes to protected branches and merges where the protected branch is the source (e.g., merging `main` into a feature branch) are allowed. The `force_push` tool is opt-in and must be explicitly added to `GIT_MIND_ALLOWED_ACTIONS`. Configure or remove branches to customize.
 
 ## Reset
 

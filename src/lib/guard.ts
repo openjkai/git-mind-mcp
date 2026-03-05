@@ -35,6 +35,17 @@ export function isProtectedBranch(branch: string): boolean {
 }
 
 /**
+ * Check if a remote is protected (no remove).
+ */
+export function isProtectedRemote(remote: string): boolean {
+  const config = getConfig();
+  const normalized = remote.toLowerCase().trim();
+  return config.protectedRemotes.some(
+    (r) => r.toLowerCase() === normalized,
+  );
+}
+
+/**
  * Check if force operations are allowed (strict mode blocks them).
  */
 export function checkForceAllowed(): GuardResult {

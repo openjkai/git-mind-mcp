@@ -50,6 +50,20 @@ describe("guard", () => {
     });
   });
 
+  describe("isProtectedRemote", () => {
+    it("returns true for origin", async () => {
+      delete process.env.GIT_MIND_PROTECTED_REMOTES;
+      const { isProtectedRemote } = await import("../../src/lib/guard");
+      expect(isProtectedRemote("origin")).toBe(true);
+    });
+
+    it("returns false for upstream", async () => {
+      delete process.env.GIT_MIND_PROTECTED_REMOTES;
+      const { isProtectedRemote } = await import("../../src/lib/guard");
+      expect(isProtectedRemote("upstream")).toBe(false);
+    });
+  });
+
   describe("checkForceAllowed", () => {
     it("allows force when strict mode off", async () => {
       process.env.GIT_MIND_STRICT_MODE = "0";

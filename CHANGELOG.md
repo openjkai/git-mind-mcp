@@ -1,43 +1,42 @@
 # Changelog
 
-## [Unreleased]
+All notable changes to Git Mind MCP are documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [2.0.0] - 2026-03-04
 
 ### Added
 
-- (none)
+- **`remote` tool** — Add, remove, or set URL of remotes; config file (`protectedRemotes`) + dry-run; cannot remove protected remotes (default: origin)
+- **`protectedRemotes` config** — Config file and `GIT_MIND_PROTECTED_REMOTES` env; default `["origin"]`
+- **`rebase` tool** — Rebase current branch onto another; supports `action`: rebase/abort/continue; protected branches blocked
+- **Optional config file** — Load from `git-mind.config.json` or `.git-mind.json`; env vars override; `GIT_MIND_CONFIG_FILE` for custom path
+- **Dry-run mode** — `GIT_MIND_DRY_RUN=1` simulates push, pull, merge, delete_branch, reset, cherry_pick, revert, rebase without executing
+- **Client setup docs** — Guides for [Cursor](docs/setup/cursor.md), [Claude Desktop](docs/setup/claude-desktop.md), [ChatGPT](docs/setup/chatgpt.md)
+- **`force_push` tool** — Opt-in force push (requires `force_push` in `GIT_MIND_ALLOWED_ACTIONS`)
+- **`cherry_pick`**, **`revert`**, **`tag`** tools
 
-## [2.0.0] - 2025-03-01
+### Changed
 
-### BREAKING CHANGES
+- **Node.js >= 22** required (was Node 20+)
+- Safety layer extended: config file + env + guard
+- Reset tool: enhanced ref validation to prevent flag injection
 
-- **Node.js 22+ required** — Minimum Node version raised from 18/20 to 22. Rationale: alignment with Node 22 LTS, improved performance, and native ESM stability. **Migration:** Upgrade to Node 22+ (e.g. `nvm install 22`), or stay on v1.x if you need Node 20 support.
+### Fixed
 
-### Added
+- Internal slashes preserved in branch names for `toLocalBranchName`
 
-- `stash` — Stash working changes (push/pop/list)
-- `fetch` — Fetch from remote (updates refs without merge)
-- `reset` — Reset HEAD (soft/mixed only; --hard explicitly blocked)
-- `cherry_pick` — Apply a commit onto current branch (protected branches blocked)
-- `revert` — Create revert commit (protected branches blocked)
-- `tag` — List tags or create lightweight/annotated tag
+---
 
-## [1.1.0] - 2025-02-25
-
-### Added
-
-- `get_remotes` — List remotes and URLs
-- `stage`, `unstage`, `commit` — Stage and commit changes
-- `push`, `pull` — Sync with remotes (push: force-push to protected branches blocked; pull: normal sync)
-- `checkout` — Switch branch or restore file
-- `create_branch`, `delete_branch` — Branch management
-- `merge` — Merge a branch into current (cannot merge into protected branches)
-- Safety layer: operation allowlist, protected branches, strict mode
-
-## [1.0.0] - 2025-02-18
+## [1.x] - 2026-02
 
 ### Added
 
-- Initial release
-- Read tools: get_status, get_commit_history, get_diff, get_blame, get_branches, suggest_commit_message
-- stdio transport for MCP
-- Optional repo path via CLI arg
+- **Read tools**: `get_status`, `get_commit_history`, `get_diff`, `get_blame`, `get_branches`, `get_remotes`, `suggest_commit_message`
+- **Write tools**: `stage`, `unstage`, `commit`, `push`, `pull`, `checkout`, `create_branch`, `delete_branch`, `merge`, `stash`, `fetch`, `reset`
+- **Safety**: `GIT_MIND_ALLOWED_ACTIONS`, `GIT_MIND_PROTECTED_BRANCHES`, `GIT_MIND_STRICT_MODE`
+- LibreChat integration docs
+
+[2.0.0]: https://github.com/your-username/git-mind-mcp/compare/v1.0.0...v2.0.0

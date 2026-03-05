@@ -17,6 +17,8 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - ~~Dry-run support for critical ops~~ ✅ — `GIT_MIND_DRY_RUN=1` simulates push, pull, merge, delete_branch, reset, cherry_pick, revert
 - ~~Client setup docs~~ ✅ — Cursor, Claude Desktop, ChatGPT setup guides in `docs/setup/`
 - ~~`rebase` tool~~ ✅ — Rebase current branch onto target; supports abort/continue for conflict resolution
+- ~~changelog, contribution guide~~ ✅ — [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](CONTRIBUTING.md)
+- ~~`remote` tool~~ ✅ — Add/remove/set-url remotes; config file (protectedRemotes) + dry-run
 
 ---
 
@@ -25,7 +27,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | Area | Status |
 |------|--------|
 | Read tools | ✅ Complete |
-| Write tools | ✅ stage, unstage, commit, push, force_push, pull, checkout, create_branch, delete_branch, merge, stash, fetch, reset, cherry_pick, revert, tag, rebase |
+| Write tools | ✅ stage, unstage, commit, push, force_push, pull, checkout, create_branch, delete_branch, merge, stash, fetch, reset, cherry_pick, revert, tag, rebase, remote |
 | Safety layer | ✅ Config file + env + guard |
 | Private server support | ✅ Via standard Git (SSH/HTTPS) |
 
@@ -53,6 +55,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - `revert` — Create revert commit (protected branches blocked)
 - `tag` — List tags or create lightweight/annotated tag
 - `rebase` — Rebase current branch onto another (rebase/abort/continue; protected branches blocked)
+- `remote` — Add, remove, set-url remotes (config file + dry-run; protected remotes blocked)
 
 ---
 
@@ -90,7 +93,9 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 ### Phase 4 — Release & Iteration  
 *Target: Ongoing*
 
-- npm publish, changelog, contribution guide
+- npm publish
+- ~~changelog~~ ✅ ([CHANGELOG.md](CHANGELOG.md))
+- ~~contribution guide~~ ✅ ([CONTRIBUTING.md](CONTRIBUTING.md))
 - Community feedback and iteration
 - ~~`cherry_pick`, `revert`, `tag`~~ ✅
 - ~~Optional: config file~~ ✅
@@ -124,6 +129,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | revert | ✅ | Medium |
 | tag | ✅ | Low |
 | rebase | ✅ | Medium |
+| remote | ✅ | Low |
 | force_push | ✅ | High (opt-in via GIT_MIND_ALLOWED_ACTIONS) |
 
 ---
@@ -141,6 +147,8 @@ See [docs/safety.md](docs/safety.md) for details.
 ## Links
 
 - [README](README.md) — Installation and usage
+- [CHANGELOG](CHANGELOG.md) — Version history
+- [CONTRIBUTING](CONTRIBUTING.md) — Contribution guide
 - [LibreChat Integration](docs/integrations/librechat.md) — Setup for LibreChat
 
 ---
