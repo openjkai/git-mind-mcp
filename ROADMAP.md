@@ -19,6 +19,8 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - ~~`rebase` tool~~ ✅ — Rebase current branch onto target; supports abort/continue for conflict resolution
 - ~~changelog, contribution guide~~ ✅ — [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](CONTRIBUTING.md)
 - ~~`remote` tool~~ ✅ — Add/remove/set-url remotes; config file (protectedRemotes) + dry-run
+- ~~`get_reflog` tool~~ ✅ — Reflog for recovery and debugging
+- ~~Response UX improvements~~ ✅ — Markdown-style formatting, icons, clearer structure for status, history, branches, remotes, stage, commit, push
 
 ---
 
@@ -40,6 +42,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - `get_blame` — Line-by-line blame
 - `get_branches` — Local and remote branches
 - `get_remotes` — List remotes and URLs
+- `get_reflog` — Reflog (recovery, lost commits, branch history)
 - `suggest_commit_message` — Staged diff for AI commit message suggestions
 
 **Write**
@@ -113,6 +116,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | get_branches | ✅ | — |
 | suggest_commit_message | ✅ | — |
 | get_remotes | ✅ | — |
+| get_reflog | ✅ | — |
 | stage | ✅ | Low |
 | unstage | ✅ | Low |
 | commit | ✅ | Low |

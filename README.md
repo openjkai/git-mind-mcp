@@ -14,6 +14,7 @@
 - `get_blame` — Who last modified each line of a file
 - `get_branches` — Local and remote branches
 - `get_remotes` — List remotes and URLs (for push/pull targets)
+- `get_reflog` — Reflog (recovery, lost commits, branch history)
 - `suggest_commit_message` — Staged diff for AI to suggest commit messages
 
 **Write**
