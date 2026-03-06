@@ -33,6 +33,8 @@ import { registerClone } from "./clone";
 import { registerBranchRename } from "./branch-rename";
 import { registerClean } from "./clean";
 import { registerSubmodule } from "./submodule";
+import { registerApply } from "./apply";
+import { registerSetConfig } from "./set-config";
 
 export function registerAllTools(server: McpServer): void {
   registerGetStatus(server);
@@ -69,4 +71,6 @@ export function registerAllTools(server: McpServer): void {
   registerBranchRename(server);
   registerClean(server);
   registerSubmodule(server);
+  registerApply(server);
+  registerSetConfig(server);
 }

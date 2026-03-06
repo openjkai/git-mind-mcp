@@ -41,14 +41,15 @@ export function registerApply(server: McpServer): void {
 
         const parsed = ApplyArgsSchema.parse(args);
 
+        const git = getGit(parsed.repoPath);
+        await validateRepo(parsed.repoPath);
+
         if (isDryRun() || parsed.check) {
-          const git = getGit(parsed.repoPath);
-          await validateRepo(parsed.repoPath);
-          const applyArgs = parsed.check ? ["--check"] : ["--stat"];
+          const applyOpts = parsed.check ? ["--check"] : ["--stat"];
           if (parsed.isPath) {
-            await git.raw(["apply", ...applyArgs, "--", parsed.patch]);
+            await git.raw(["apply", ...applyOpts, "--", parsed.patch]);
           } else {
-            await git.raw(["apply", ...applyArgs, "--stdin"], parsed.patch);
+            await git.applyPatch(parsed.patch, applyOpts);
           }
           return textResponse(
             parsed.check
@@ -57,13 +58,10 @@ export function registerApply(server: McpServer): void {
           );
         }
 
-        const git = getGit(parsed.repoPath);
-        await validateRepo(parsed.repoPath);
-
         if (parsed.isPath) {
           await git.raw(["apply", "--", parsed.patch]);
         } else {
-          await git.raw(["apply", "--stdin"], parsed.patch);
+          await git.applyPatch(parsed.patch);
         }
 
         return textResponse(success("Applied", "Patch applied to working tree."));

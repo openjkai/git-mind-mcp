@@ -16,16 +16,16 @@ import { checkOperationAllowed, isDryRun } from "../../src/lib/guard";
 import { createMockServer } from "./helpers";
 
 describe("clean tool", () => {
-  const mockRaw = vi.fn();
+  const mockClean = vi.fn();
   let mockServer: ReturnType<typeof createMockServer>;
 
   beforeEach(() => {
     vi.clearAllMocks();
     vi.mocked(checkOperationAllowed).mockReturnValue({ allowed: true });
     vi.mocked(isDryRun).mockReturnValue(false);
-    mockRaw.mockResolvedValue("Would remove build/\nWould remove tmp.txt");
+    mockClean.mockResolvedValue("Would remove build/\nWould remove tmp.txt");
     vi.mocked(getGit).mockReturnValue({
-      raw: mockRaw,
+      clean: mockClean,
     } as ReturnType<typeof getGit>);
     mockServer = createMockServer();
     registerClean(mockServer);
@@ -35,19 +35,19 @@ describe("clean tool", () => {
     const handler = mockServer.getHandler("clean");
     const result = await handler({});
 
-    expect(mockRaw).toHaveBeenCalledWith(["clean", "-n"]);
+    expect(mockClean).toHaveBeenCalledWith("n");
     expect(result).toMatchObject({
       content: [{ type: "text", text: expect.stringContaining("[DRY RUN]") }],
     });
   });
 
   it("actually removes when dryRun=false", async () => {
-    mockRaw.mockResolvedValue(undefined);
+    mockClean.mockResolvedValue(undefined);
 
     const handler = mockServer.getHandler("clean");
     const result = await handler({ dryRun: false });
 
-    expect(mockRaw).toHaveBeenCalledWith(["clean", "-f"]);
+    expect(mockClean).toHaveBeenCalledWith("f");
     expect(result).toMatchObject({
       content: [{ type: "text", text: expect.stringContaining("Cleaned") }],
     });
@@ -56,7 +56,7 @@ describe("clean tool", () => {
   it("passes -d and -x when directories and ignored true", async () => {
     await mockServer.getHandler("clean")({ dryRun: false, directories: true, ignored: true });
 
-    expect(mockRaw).toHaveBeenCalledWith(["clean", "-f", "-d", "-x"]);
+    expect(mockClean).toHaveBeenCalledWith("fdx");
   });
 
   it("blocks when operation not allowed", async () => {
