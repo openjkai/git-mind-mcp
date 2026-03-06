@@ -54,10 +54,10 @@ describe("get_status tool", () => {
     const result = await handler({});
 
     const text = (result as { content: { text: string }[] }).content[0].text;
-    expect(text).toContain("Current branch: main");
+    expect(text).toContain("main");
     expect(text).toContain("file1.ts");
     expect(text).toContain("file2.ts");
-    expect(text).toContain("Staged changes");
+    expect(text).toContain("Staged");
     expect(text).toContain("Modified");
   });
 

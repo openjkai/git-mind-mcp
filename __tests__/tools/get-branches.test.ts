@@ -32,7 +32,7 @@ describe("get_branches tool", () => {
     const result = await handler({});
 
     const text = (result as { content: { text: string }[] }).content[0].text;
-    expect(text).toContain("Local branches:");
+    expect(text).toContain("Branches");
     expect(text).toContain("main");
     expect(text).toContain("develop");
   });

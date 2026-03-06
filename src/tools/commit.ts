@@ -3,6 +3,7 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { getGit, validateRepo } from "../lib/git";
 import { textResponse } from "../lib/response";
 import { formatGitError } from "../lib/format-git-error";
+import { success, error, code } from "../lib/format-response";
 import { checkOperationAllowed } from "../lib/guard";
 
 const CommitArgsSchema = z.object({
@@ -25,7 +26,7 @@ export function registerCommit(server: McpServer): void {
       try {
         const guard = checkOperationAllowed("commit");
         if (!guard.allowed) {
-          return textResponse(guard.reason ?? "Operation not allowed.");
+          return textResponse(error(guard.reason ?? "Operation not allowed."));
         }
 
         const parsed = CommitArgsSchema.parse(args);
@@ -36,13 +37,14 @@ export function registerCommit(server: McpServer): void {
 
         if (!result.commit) {
           return textResponse(
-            "Nothing to commit. Stage changes first with the stage tool, then commit.",
+            error("Nothing to commit. Stage changes first with the stage tool, then commit."),
           );
         }
 
-        return textResponse(`Committed: ${result.commit}\n${parsed.message}`);
+        const shortHash = result.commit.substring(0, 7);
+        return textResponse(success("Committed", `${code(shortHash)} — ${parsed.message}`));
       } catch (e) {
-        return textResponse(`Error: ${formatGitError(e)}`);
+        return textResponse(error(formatGitError(e)));
       }
     },
   );

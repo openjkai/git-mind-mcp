@@ -3,6 +3,7 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { getGit, validateRepo } from "../lib/git";
 import { textResponse } from "../lib/response";
 import { formatGitError } from "../lib/format-git-error";
+import * as fmt from "../lib/format-response";
 
 const GetCommitHistoryArgsSchema = z.object({
   repoPath: z.string().optional().describe("Path to the git repository"),
@@ -28,12 +29,15 @@ export function registerGetCommitHistory(server: McpServer): void {
 
         const log = await git.log({ maxCount: parsed.limit });
         const lines = log.all.map(
-          (c) => `${c.hash.substring(0, 7)} | ${c.author_name} | ${c.date} | ${c.message}`,
+          (c) => `${fmt.code(c.hash.substring(0, 7))} · ${c.author_name} · ${c.date}\n    ${c.message}`,
         );
-        const text = lines.length > 0 ? lines.join("\n") : "No commits found.";
+        const text =
+          lines.length > 0
+            ? fmt.section("Recent commits", "📜") + lines.join("\n\n")
+            : fmt.emptyState("No commits found.", "📭");
         return textResponse(text);
       } catch (e) {
-        return textResponse(`Error: ${formatGitError(e)}`);
+        return textResponse(fmt.error(formatGitError(e)));
       }
     },
   );

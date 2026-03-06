@@ -3,6 +3,7 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { getGit, toLocalBranchName, validateRepo } from "../lib/git";
 import { textResponse } from "../lib/response";
 import { formatGitError } from "../lib/format-git-error";
+import { success, error, warning } from "../lib/format-response";
 import {
   checkForceAllowed,
   checkOperationAllowed,
@@ -50,19 +51,21 @@ export function registerPush(server: McpServer): void {
         const status = await git.status();
         const branch = parsed.branch ?? status.current;
         if (!branch) {
-          return textResponse("No branch to push (detached HEAD state).");
+          return textResponse(warning("No branch to push (detached HEAD state)."));
         }
 
         const branchName = toLocalBranchName(branch);
         if (parsed.force) {
           const forceGuard = checkForceAllowed();
           if (!forceGuard.allowed) {
-            return textResponse(forceGuard.reason ?? "Force push not allowed.");
+            return textResponse(error(forceGuard.reason ?? "Force push not allowed."));
           }
           if (isProtectedBranch(branchName)) {
             return textResponse(
-              `Cannot force push to protected branch '${branchName}'. ` +
-                "Use GIT_MIND_PROTECTED_BRANCHES to configure, or remove to allow regular pushes.",
+              error(
+                `Cannot force push to protected branch '${branchName}'. ` +
+                  "Use GIT_MIND_PROTECTED_BRANCHES to configure.",
+              ),
             );
           }
         }
@@ -70,9 +73,9 @@ export function registerPush(server: McpServer): void {
         const pushOpts = parsed.force ? ["--force"] : [];
         const remote = parsed.remote;
         await git.push(remote, branch, pushOpts);
-        return textResponse(`Pushed ${branch} to ${remote}.`);
+        return textResponse(success("Pushed", `${branch} → ${remote}`));
       } catch (e) {
-        return textResponse(`Error: ${formatGitError(e)}`);
+        return textResponse(error(formatGitError(e)));
       }
     },
   );

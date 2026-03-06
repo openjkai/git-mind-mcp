@@ -3,6 +3,7 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { getGit, validateRepo } from "../lib/git";
 import { textResponse } from "../lib/response";
 import { formatGitError } from "../lib/format-git-error";
+import * as fmt from "../lib/format-response";
 
 const GetStatusArgsSchema = z.object({
   repoPath: z.string().optional().describe("Path to the git repository (defaults to current directory)"),
@@ -26,37 +27,33 @@ export function registerGetStatus(server: McpServer): void {
         await validateRepo(parsed.repoPath);
 
         const status = await git.status();
-        const lines: string[] = [];
+        const parts: string[] = [];
 
         if (status.current) {
-          lines.push(`Current branch: ${status.current}`);
+          parts.push(fmt.section("Branch", "🌿") + fmt.kv("Current", fmt.code(status.current)));
         }
 
         if (status.staged.length > 0) {
-          lines.push("\nStaged changes:");
-          status.staged.forEach((f) => lines.push(`  + ${f}`));
+          parts.push(fmt.section("Staged", "🟢") + fmt.list(status.staged.map((f) => fmt.code(f))));
         }
         if (status.modified.length > 0) {
-          lines.push("\nModified (not staged):");
-          status.modified.forEach((f) => lines.push(`  M ${f}`));
+          parts.push(fmt.section("Modified (not staged)", "🟡") + fmt.list(status.modified.map((f) => fmt.code(f))));
         }
         if (status.not_added.length > 0) {
-          lines.push("\nUntracked:");
-          status.not_added.forEach((f) => lines.push(`  ? ${f}`));
+          parts.push(fmt.section("Untracked", "⚪") + fmt.list(status.not_added.map((f) => fmt.code(f))));
         }
         if (status.deleted.length > 0) {
-          lines.push("\nDeleted:");
-          status.deleted.forEach((f) => lines.push(`  - ${f}`));
+          parts.push(fmt.section("Deleted", "🔴") + fmt.list(status.deleted.map((f) => fmt.code(f))));
         }
         if (status.conflicted.length > 0) {
-          lines.push("\nConflicted:");
-          status.conflicted.forEach((f) => lines.push(`  ! ${f}`));
+          parts.push(fmt.section("Conflicted", "🔶") + fmt.list(status.conflicted.map((f) => fmt.code(f))));
         }
 
-        const text = lines.length > 0 ? lines.join("\n") : "Working tree clean. No changes.";
+        const text =
+          parts.length > 0 ? parts.join("\n") : fmt.success("Working tree clean", "No changes to commit.");
         return textResponse(text);
       } catch (e) {
-        return textResponse(`Error: ${formatGitError(e)}`);
+        return textResponse(fmt.error(formatGitError(e)));
       }
     },
   );

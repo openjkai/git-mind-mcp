@@ -5,6 +5,7 @@ import { registerGetDiff } from "./get-diff";
 import { registerGetBlame } from "./get-blame";
 import { registerGetBranches } from "./get-branches";
 import { registerGetRemotes } from "./get-remotes";
+import { registerGetReflog } from "./get-reflog";
 import { registerSuggestCommitMessage } from "./suggest-commit-message";
 import { registerStage } from "./stage";
 import { registerUnstage } from "./unstage";
@@ -32,6 +33,7 @@ export function registerAllTools(server: McpServer): void {
   registerGetBlame(server);
   registerGetBranches(server);
   registerGetRemotes(server);
+  registerGetReflog(server);
   registerSuggestCommitMessage(server);
   registerStage(server);
   registerUnstage(server);

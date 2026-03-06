@@ -3,6 +3,7 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { getGit, validateRepo } from "../lib/git";
 import { textResponse } from "../lib/response";
 import { formatGitError } from "../lib/format-git-error";
+import { success, error } from "../lib/format-response";
 import { checkOperationAllowed } from "../lib/guard";
 
 const StageArgsSchema = z.object({
@@ -27,7 +28,7 @@ export function registerStage(server: McpServer): void {
       try {
         const guard = checkOperationAllowed("stage");
         if (!guard.allowed) {
-          return textResponse(guard.reason ?? "Operation not allowed.");
+          return textResponse(error(guard.reason ?? "Operation not allowed."));
         }
 
         const parsed = StageArgsSchema.parse(args);
@@ -38,9 +39,9 @@ export function registerStage(server: McpServer): void {
         await git.add(files);
 
         const list = files.length === 1 ? files[0] : files.join(", ");
-        return textResponse(`Staged ${list}.`);
+        return textResponse(success("Staged", list));
       } catch (e) {
-        return textResponse(`Error: ${formatGitError(e)}`);
+        return textResponse(error(formatGitError(e)));
       }
     },
   );
