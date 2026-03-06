@@ -23,6 +23,9 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - ~~Response UX improvements~~ ✅ — Markdown-style formatting, icons, clearer structure for status, history, branches, remotes, stage, commit, push
 - ~~`init` tool~~ ✅ — Initialize new Git repository (git init; supports bare)
 - ~~`clone` tool~~ ✅ — Clone repository from URL (git clone; config + dry-run)
+- ~~`get_show` tool~~ ✅ — Show commit details (message, author, diff)
+- ~~`get_config` tool~~ ✅ — Read Git configuration (key or all)
+- ~~`branch_rename` tool~~ ✅ — Rename branch (protected branches blocked; dry-run)
 
 ---
 
@@ -51,7 +54,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - `stage`, `unstage`, `commit` — Stage and commit changes
 - `push`, `force_push`, `pull` — Sync with remotes (guardrails applied; force_push opt-in)
 - `checkout` — Switch branch or restore file
-- `create_branch`, `delete_branch` — Branch management (protected branches blocked)
+- `create_branch`, `delete_branch`, `branch_rename` — Branch management (protected branches blocked)
 - `merge` — Merge a branch into current (cannot merge into protected branches)
 - `stash` — Stash working changes (push/pop/list)
 - `fetch` — Fetch from remote (updates refs, no merge)
@@ -121,6 +124,8 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | suggest_commit_message | ✅ | — |
 | get_remotes | ✅ | — |
 | get_reflog | ✅ | — |
+| get_show | ✅ | — |
+| get_config | ✅ | — |
 | stage | ✅ | Low |
 | unstage | ✅ | Low |
 | commit | ✅ | Low |
@@ -129,6 +134,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | checkout | ✅ | Low |
 | create_branch | ✅ | Low |
 | delete_branch | ✅ | Medium |
+| branch_rename | ✅ | Low |
 | merge | ✅ | Medium |
 | stash | ✅ | Low |
 | reset | ✅ | Medium (soft/mixed only) |

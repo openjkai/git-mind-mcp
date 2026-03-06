@@ -15,6 +15,8 @@
 - `get_branches` — Local and remote branches
 - `get_remotes` — List remotes and URLs (for push/pull targets)
 - `get_reflog` — Reflog (recovery, lost commits, branch history)
+- `get_show` — Show a specific commit (message, author, diff)
+- `get_config` — Read Git config (specific key or all)
 - `suggest_commit_message` — Staged diff for AI to suggest commit messages
 
 **Write**
@@ -29,6 +31,7 @@
 - `checkout` — Switch branch or restore file
 - `create_branch` — Create and optionally checkout a branch
 - `delete_branch` — Delete local branch (protected branches blocked)
+- `branch_rename` — Rename a branch (protected branches blocked)
 - `merge` — Merge a branch into the current branch (cannot merge into protected branches)
 - `stash` — Stash changes (push/pop/list)
 - `fetch` — Fetch from remote (updates refs, no merge)
@@ -41,7 +44,7 @@
 
 **Configuration** (optional config file + environment variables; env overrides file)
 - **Config file** — Place `git-mind.config.json` or `.git-mind.json` in the working directory (or set `GIT_MIND_CONFIG_FILE`). See [git-mind.config.example.json](git-mind.config.example.json) and [Safety Model](docs/safety.md).
-- `GIT_MIND_ALLOWED_ACTIONS` — Comma-separated list of allowed operations (default: `stage,unstage,commit`). Add `init,clone,push,force_push,pull,checkout,create_branch,delete_branch,merge,stash,fetch,reset,cherry_pick,revert,tag,rebase,remote` to enable init, clone, sync, branching, merge, stash, fetch, reset, cherry_pick, revert, tag, rebase, remote, and optional force_push.
+- `GIT_MIND_ALLOWED_ACTIONS` — Comma-separated list of allowed operations (default: `stage,unstage,commit`). Add `init,clone,push,force_push,pull,checkout,create_branch,delete_branch,branch_rename,merge,stash,fetch,reset,cherry_pick,revert,tag,rebase,remote` to enable init, clone, sync, branching, merge, stash, fetch, reset, cherry_pick, revert, tag, rebase, remote, branch_rename, and optional force_push.
 - `GIT_MIND_PROTECTED_BRANCHES` — Branches to protect from push/delete/merge (default: `main,master`)
 - `GIT_MIND_PROTECTED_REMOTES` — Remotes to protect from removal (default: `origin`; config file supports array)
 - `GIT_MIND_STRICT_MODE` — Set to `1` to disable force operations

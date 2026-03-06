@@ -3,7 +3,7 @@ import { registerAllTools } from "../../src/tools/index";
 import { createMockServer } from "./helpers";
 
 describe("tool registration", () => {
-  it("registers all 26 tools", () => {
+  it("registers all 31 tools", () => {
     const mockServer = createMockServer();
     registerAllTools(mockServer);
 
@@ -14,6 +14,9 @@ describe("tool registration", () => {
       "get_blame",
       "get_branches",
       "get_remotes",
+      "get_reflog",
+      "get_show",
+      "get_config",
       "suggest_commit_message",
       "stage",
       "unstage",
@@ -33,7 +36,9 @@ describe("tool registration", () => {
       "tag",
       "rebase",
       "remote",
-      "get_reflog",
+      "init",
+      "clone",
+      "branch_rename",
     ];
 
     for (const name of expectedTools) {
