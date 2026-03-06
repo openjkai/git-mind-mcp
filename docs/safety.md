@@ -28,7 +28,7 @@ Place `git-mind.config.json` or `.git-mind.json` in the current working director
 | `GIT_MIND_PROTECTED_BRANCHES` | `main,master` | Branches protected from force push, delete, and merge |
 | `GIT_MIND_PROTECTED_REMOTES` | `origin` | Remotes protected from removal (config file supports array) |
 | `GIT_MIND_STRICT_MODE` | `0` | Set to `1` to disable all force operations |
-| `GIT_MIND_DRY_RUN` | `0` | Set to `1` to simulate critical ops (push, pull, merge, delete_branch, reset, cherry_pick, revert, rebase, remote) without executing |
+| `GIT_MIND_DRY_RUN` | `0` | Set to `1` to simulate critical ops (push, pull, merge, delete_branch, reset, cherry_pick, revert, rebase, remote, init, clone) without executing |
 | `GIT_MIND_CONFIG_FILE` | — | Path to config file (relative to cwd); overrides auto-discovery |
 
 ## Operation Allowlist
@@ -36,7 +36,7 @@ Place `git-mind.config.json` or `.git-mind.json` in the current working director
 Only operations listed in `GIT_MIND_ALLOWED_ACTIONS` can execute. Default is `stage,unstage,commit`. To enable push, pull, branching, merge, stash, fetch, reset, cherry_pick, revert, tag, and optional force_push:
 
 ```bash
-export GIT_MIND_ALLOWED_ACTIONS=stage,unstage,commit,push,force_push,pull,checkout,create_branch,delete_branch,merge,stash,fetch,reset,cherry_pick,revert,tag,rebase,remote
+export GIT_MIND_ALLOWED_ACTIONS=stage,unstage,commit,push,force_push,pull,checkout,create_branch,delete_branch,merge,stash,fetch,reset,cherry_pick,revert,tag,rebase,remote,init,clone
 ```
 
 ## Protected Branches

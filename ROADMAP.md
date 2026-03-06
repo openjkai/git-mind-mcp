@@ -21,6 +21,8 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - ~~`remote` tool~~ ✅ — Add/remove/set-url remotes; config file (protectedRemotes) + dry-run
 - ~~`get_reflog` tool~~ ✅ — Reflog for recovery and debugging
 - ~~Response UX improvements~~ ✅ — Markdown-style formatting, icons, clearer structure for status, history, branches, remotes, stage, commit, push
+- ~~`init` tool~~ ✅ — Initialize new Git repository (git init; supports bare)
+- ~~`clone` tool~~ ✅ — Clone repository from URL (git clone; config + dry-run)
 
 ---
 
@@ -29,7 +31,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | Area | Status |
 |------|--------|
 | Read tools | ✅ Complete |
-| Write tools | ✅ stage, unstage, commit, push, force_push, pull, checkout, create_branch, delete_branch, merge, stash, fetch, reset, cherry_pick, revert, tag, rebase, remote |
+| Write tools | ✅ stage, unstage, commit, push, force_push, pull, checkout, create_branch, delete_branch, merge, stash, fetch, reset, cherry_pick, revert, tag, rebase, remote, init, clone |
 | Safety layer | ✅ Config file + env + guard |
 | Private server support | ✅ Via standard Git (SSH/HTTPS) |
 
@@ -59,6 +61,8 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - `tag` — List tags or create lightweight/annotated tag
 - `rebase` — Rebase current branch onto another (rebase/abort/continue; protected branches blocked)
 - `remote` — Add, remove, set-url remotes (config file + dry-run; protected remotes blocked)
+- `init` — Initialize new Git repository (bare or normal)
+- `clone` — Clone repository from URL into local directory
 
 ---
 
@@ -134,6 +138,8 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | tag | ✅ | Low |
 | rebase | ✅ | Medium |
 | remote | ✅ | Low |
+| init | ✅ | Low |
+| clone | ✅ | Medium |
 | force_push | ✅ | High (opt-in via GIT_MIND_ALLOWED_ACTIONS) |
 
 ---

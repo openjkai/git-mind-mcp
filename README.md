@@ -18,6 +18,8 @@
 - `suggest_commit_message` — Staged diff for AI to suggest commit messages
 
 **Write**
+- `init` — Initialize a new Git repository (git init; supports bare)
+- `clone` — Clone a repository from URL (git clone)
 - `stage` — Stage files for commit (git add)
 - `unstage` — Unstage files (git reset)
 - `commit` — Create a commit with staged changes
@@ -39,11 +41,11 @@
 
 **Configuration** (optional config file + environment variables; env overrides file)
 - **Config file** — Place `git-mind.config.json` or `.git-mind.json` in the working directory (or set `GIT_MIND_CONFIG_FILE`). See [git-mind.config.example.json](git-mind.config.example.json) and [Safety Model](docs/safety.md).
-- `GIT_MIND_ALLOWED_ACTIONS` — Comma-separated list of allowed operations (default: `stage,unstage,commit`). Add `push,force_push,pull,checkout,create_branch,delete_branch,merge,stash,fetch,reset,cherry_pick,revert,tag,rebase,remote` to enable sync, branching, merge, stash, fetch, reset, cherry_pick, revert, tag, rebase, remote, and optional force_push.
+- `GIT_MIND_ALLOWED_ACTIONS` — Comma-separated list of allowed operations (default: `stage,unstage,commit`). Add `init,clone,push,force_push,pull,checkout,create_branch,delete_branch,merge,stash,fetch,reset,cherry_pick,revert,tag,rebase,remote` to enable init, clone, sync, branching, merge, stash, fetch, reset, cherry_pick, revert, tag, rebase, remote, and optional force_push.
 - `GIT_MIND_PROTECTED_BRANCHES` — Branches to protect from push/delete/merge (default: `main,master`)
 - `GIT_MIND_PROTECTED_REMOTES` — Remotes to protect from removal (default: `origin`; config file supports array)
 - `GIT_MIND_STRICT_MODE` — Set to `1` to disable force operations
-- `GIT_MIND_DRY_RUN` — Set to `1` to simulate critical ops (push, pull, merge, delete_branch, reset, cherry_pick, revert, rebase, remote) without executing
+- `GIT_MIND_DRY_RUN` — Set to `1` to simulate critical ops (init, clone, push, pull, merge, delete_branch, reset, cherry_pick, revert, rebase, remote) without executing
 
 ## Client Setup
 
