@@ -8,6 +8,7 @@ import { registerGetRemotes } from "./get-remotes";
 import { registerGetReflog } from "./get-reflog";
 import { registerGetShow } from "./get-show";
 import { registerGetConfig } from "./get-config";
+import { registerGetLog } from "./get-log";
 import { registerSuggestCommitMessage } from "./suggest-commit-message";
 import { registerStage } from "./stage";
 import { registerUnstage } from "./unstage";
@@ -30,6 +31,8 @@ import { registerRemote } from "./remote";
 import { registerInit } from "./init";
 import { registerClone } from "./clone";
 import { registerBranchRename } from "./branch-rename";
+import { registerClean } from "./clean";
+import { registerSubmodule } from "./submodule";
 
 export function registerAllTools(server: McpServer): void {
   registerGetStatus(server);
@@ -41,6 +44,7 @@ export function registerAllTools(server: McpServer): void {
   registerGetReflog(server);
   registerGetShow(server);
   registerGetConfig(server);
+  registerGetLog(server);
   registerSuggestCommitMessage(server);
   registerStage(server);
   registerUnstage(server);
@@ -63,4 +67,6 @@ export function registerAllTools(server: McpServer): void {
   registerInit(server);
   registerClone(server);
   registerBranchRename(server);
+  registerClean(server);
+  registerSubmodule(server);
 }
