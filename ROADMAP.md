@@ -66,6 +66,8 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - `remote` — Add, remove, set-url remotes (config file + dry-run; protected remotes blocked)
 - `init` — Initialize new Git repository (bare or normal)
 - `clone` — Clone repository from URL into local directory
+- `mv` — Move or rename files (git mv; tracks rename for better diff history)
+- `archive` — Create tar/zip archive of repo at a ref (release bundles; dry-run)
 
 ---
 
@@ -146,6 +148,8 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | remote | ✅ | Low |
 | init | ✅ | Low |
 | clone | ✅ | Medium |
+| mv | ✅ | Low |
+| archive | ✅ | Low |
 | force_push | ✅ | High (opt-in via GIT_MIND_ALLOWED_ACTIONS) |
 
 ---

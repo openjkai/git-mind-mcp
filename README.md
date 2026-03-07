@@ -41,10 +41,12 @@
 - `tag` — List tags or create lightweight/annotated tag
 - `rebase` — Rebase current branch onto another (action: rebase/abort/continue; protected branches blocked)
 - `remote` — Add, remove, or set URL of remotes (config file + dry-run; protected remotes like origin blocked from remove)
+- `mv` — Move or rename files (git mv; tracks rename for better diff history)
+- `archive` — Create tar/zip archive of repo at a ref (release bundles; dry-run)
 
 **Configuration** (optional config file + environment variables; env overrides file)
 - **Config file** — Place `git-mind.config.json` or `.git-mind.json` in the working directory (or set `GIT_MIND_CONFIG_FILE`). See [git-mind.config.example.json](git-mind.config.example.json) and [Safety Model](docs/safety.md).
-- `GIT_MIND_ALLOWED_ACTIONS` — Comma-separated list of allowed operations (default: `stage,unstage,commit`). Add `init,clone,push,force_push,pull,checkout,create_branch,delete_branch,branch_rename,merge,stash,fetch,reset,cherry_pick,revert,tag,rebase,remote` to enable init, clone, sync, branching, merge, stash, fetch, reset, cherry_pick, revert, tag, rebase, remote, branch_rename, and optional force_push.
+- `GIT_MIND_ALLOWED_ACTIONS` — Comma-separated list of allowed operations (default: `stage,unstage,commit`). Add `init,clone,push,force_push,pull,checkout,create_branch,delete_branch,branch_rename,merge,stash,fetch,reset,cherry_pick,revert,tag,rebase,remote,mv,archive` to enable init, clone, sync, branching, merge, stash, fetch, reset, cherry_pick, revert, tag, rebase, remote, branch_rename, mv, archive, and optional force_push.
 - `GIT_MIND_PROTECTED_BRANCHES` — Branches to protect from push/delete/merge (default: `main,master`)
 - `GIT_MIND_PROTECTED_REMOTES` — Remotes to protect from removal (default: `origin`; config file supports array)
 - `GIT_MIND_STRICT_MODE` — Set to `1` to disable force operations

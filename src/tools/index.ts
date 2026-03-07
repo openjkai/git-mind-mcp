@@ -35,6 +35,8 @@ import { registerClean } from "./clean";
 import { registerSubmodule } from "./submodule";
 import { registerApply } from "./apply";
 import { registerSetConfig } from "./set-config";
+import { registerMv } from "./mv";
+import { registerArchive } from "./archive";
 
 export function registerAllTools(server: McpServer): void {
   registerGetStatus(server);
@@ -73,4 +75,6 @@ export function registerAllTools(server: McpServer): void {
   registerSubmodule(server);
   registerApply(server);
   registerSetConfig(server);
+  registerMv(server);
+  registerArchive(server);
 }
