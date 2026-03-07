@@ -3,6 +3,7 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { getGit, validateRepo } from "../lib/git";
 import { textResponse } from "../lib/response";
 import { formatGitError } from "../lib/format-git-error";
+import * as fmt from "../lib/format-response";
 
 const GetBranchesArgsSchema = z.object({
   repoPath: z.string().optional().describe("Path to the git repository"),
@@ -26,18 +27,18 @@ export function registerGetBranches(server: McpServer): void {
         await validateRepo(parsed.repoPath);
 
         const branch = await git.branch(["-a", "-v"]);
-        const lines: string[] = [];
-
-        lines.push("Local branches:");
-        branch.all.forEach((b) => {
-          const current = branch.current === b ? " * " : "   ";
-          lines.push(`${current}${b}`);
+        const lines = branch.all.map((b) => {
+          const marker = branch.current === b ? "📍 " : "   ";
+          return `${marker}${fmt.code(b)}`;
         });
 
-        const text = lines.join("\n");
+        const text =
+          lines.length > 0
+            ? fmt.section("Branches", "🌿") + fmt.kv("Current", fmt.code(branch.current ?? "(detached)")) + "\n\n" + lines.join("\n")
+            : fmt.emptyState("No branches found.", "🌿");
         return textResponse(text);
       } catch (e) {
-        return textResponse(`Error: ${formatGitError(e)}`);
+        return textResponse(fmt.error(formatGitError(e)));
       }
     },
   );

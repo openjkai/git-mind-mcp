@@ -3,7 +3,7 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { getGit, validateRepo } from "../lib/git";
 import { textResponse } from "../lib/response";
 import { formatGitError } from "../lib/format-git-error";
-import { checkOperationAllowed } from "../lib/guard";
+import { checkOperationAllowed, isDryRun } from "../lib/guard";
 
 const ResetArgsSchema = z.object({
   repoPath: z.string().optional().describe("Path to the git repository"),
@@ -39,6 +39,13 @@ export function registerReset(server: McpServer): void {
         }
 
         const parsed = ResetArgsSchema.parse(args);
+        if (isDryRun()) {
+          const modeStr = parsed.mode === "soft" ? "soft" : "mixed";
+          return textResponse(
+            `[DRY RUN] Would execute: reset --${modeStr} ${parsed.ref}`,
+          );
+        }
+
         const git = getGit(parsed.repoPath);
         await validateRepo(parsed.repoPath);
 

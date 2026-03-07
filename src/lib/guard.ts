@@ -35,6 +35,17 @@ export function isProtectedBranch(branch: string): boolean {
 }
 
 /**
+ * Check if a remote is protected (no remove).
+ */
+export function isProtectedRemote(remote: string): boolean {
+  const config = getConfig();
+  const normalized = remote.toLowerCase().trim();
+  return config.protectedRemotes.some(
+    (r) => r.toLowerCase() === normalized,
+  );
+}
+
+/**
  * Check if force operations are allowed (strict mode blocks them).
  */
 export function checkForceAllowed(): GuardResult {
@@ -46,4 +57,11 @@ export function checkForceAllowed(): GuardResult {
     };
   }
   return { allowed: true };
+}
+
+/**
+ * Check if dry-run mode is enabled. When true, critical ops should report "Would execute: ..." and skip.
+ */
+export function isDryRun(): boolean {
+  return getConfig().dryRun;
 }

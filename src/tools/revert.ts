@@ -3,7 +3,7 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { getGit, toLocalBranchName, validateRepo } from "../lib/git";
 import { textResponse } from "../lib/response";
 import { formatGitError } from "../lib/format-git-error";
-import { checkOperationAllowed, isProtectedBranch } from "../lib/guard";
+import { checkOperationAllowed, isDryRun, isProtectedBranch } from "../lib/guard";
 
 const RevertArgsSchema = z.object({
   repoPath: z.string().optional().describe("Path to the git repository"),
@@ -29,6 +29,12 @@ export function registerRevert(server: McpServer): void {
         }
 
         const parsed = RevertArgsSchema.parse(args);
+        if (isDryRun()) {
+          return textResponse(
+            `[DRY RUN] Would execute: revert ${parsed.commit}`,
+          );
+        }
+
         const git = getGit(parsed.repoPath);
         await validateRepo(parsed.repoPath);
 

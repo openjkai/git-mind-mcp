@@ -13,6 +13,7 @@ vi.mock("../../src/lib/git", async (importOriginal) => {
 vi.mock("../../src/lib/guard", () => ({
   checkForceAllowed: vi.fn(),
   checkOperationAllowed: vi.fn(),
+  isDryRun: vi.fn().mockReturnValue(false),
   isProtectedBranch: vi.fn(),
 }));
 
@@ -20,6 +21,7 @@ import { getGit } from "../../src/lib/git";
 import {
   checkForceAllowed,
   checkOperationAllowed,
+  isDryRun,
   isProtectedBranch,
 } from "../../src/lib/guard";
 
@@ -33,6 +35,7 @@ describe("push tool", () => {
   beforeEach(() => {
     vi.mocked(checkOperationAllowed).mockReturnValue({ allowed: true });
     vi.mocked(checkForceAllowed).mockReturnValue({ allowed: true });
+    vi.mocked(isDryRun).mockReturnValue(false);
     vi.mocked(isProtectedBranch).mockReturnValue(false);
     mockStatus.mockResolvedValue({ current: "feature/foo" });
     mockPush.mockResolvedValue(undefined);
@@ -101,6 +104,19 @@ describe("push tool", () => {
     });
 
     expect(mockPush).toHaveBeenCalledWith("upstream", "fix/bar", []);
+  });
+
+  it("returns dry-run message when GIT_MIND_DRY_RUN is set", async () => {
+    mockPush.mockClear();
+    vi.mocked(isDryRun).mockReturnValue(true);
+
+    const handler = mockServer.getHandler("push");
+    const result = await handler({ remote: "origin", branch: "feature" });
+
+    expect(mockPush).not.toHaveBeenCalled();
+    expect(result).toMatchObject({
+      content: [{ type: "text", text: expect.stringContaining("[DRY RUN] Would execute: push feature to origin") }],
+    });
   });
 
   it("rejects when operation not allowed", async () => {

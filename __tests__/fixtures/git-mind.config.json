@@ -1,5 +1,6 @@
 {
   "allowedActions": ["stage", "unstage", "commit", "push", "pull"],
   "protectedBranches": ["main", "master", "develop"],
+  "protectedRemotes": ["origin", "upstream"],
   "strictMode": false
 }

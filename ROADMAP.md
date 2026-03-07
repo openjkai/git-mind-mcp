@@ -14,6 +14,18 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 *March 2, 2026*
 
 - ~~Optional config file~~ ✅ — Load config from `git-mind.config.json` or `.git-mind.json`; env vars override; supports `GIT_MIND_CONFIG_FILE` for custom path
+- ~~Dry-run support for critical ops~~ ✅ — `GIT_MIND_DRY_RUN=1` simulates push, pull, merge, delete_branch, reset, cherry_pick, revert
+- ~~Client setup docs~~ ✅ — Cursor, Claude Desktop, ChatGPT setup guides in `docs/setup/`
+- ~~`rebase` tool~~ ✅ — Rebase current branch onto target; supports abort/continue for conflict resolution
+- ~~changelog, contribution guide~~ ✅ — [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](CONTRIBUTING.md)
+- ~~`remote` tool~~ ✅ — Add/remove/set-url remotes; config file (protectedRemotes) + dry-run
+- ~~`get_reflog` tool~~ ✅ — Reflog for recovery and debugging
+- ~~Response UX improvements~~ ✅ — Markdown-style formatting, icons, clearer structure for status, history, branches, remotes, stage, commit, push
+- ~~`init` tool~~ ✅ — Initialize new Git repository (git init; supports bare)
+- ~~`clone` tool~~ ✅ — Clone repository from URL (git clone; config + dry-run)
+- ~~`get_show` tool~~ ✅ — Show commit details (message, author, diff)
+- ~~`get_config` tool~~ ✅ — Read Git configuration (key or all)
+- ~~`branch_rename` tool~~ ✅ — Rename branch (protected branches blocked; dry-run)
 
 ---
 
@@ -22,7 +34,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | Area | Status |
 |------|--------|
 | Read tools | ✅ Complete |
-| Write tools | ✅ stage, unstage, commit, push, force_push, pull, checkout, create_branch, delete_branch, merge, stash, fetch, reset, cherry_pick, revert, tag |
+| Write tools | ✅ stage, unstage, commit, push, force_push, pull, checkout, create_branch, delete_branch, merge, stash, fetch, reset, cherry_pick, revert, tag, rebase, remote, init, clone |
 | Safety layer | ✅ Config file + env + guard |
 | Private server support | ✅ Via standard Git (SSH/HTTPS) |
 
@@ -35,13 +47,14 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - `get_blame` — Line-by-line blame
 - `get_branches` — Local and remote branches
 - `get_remotes` — List remotes and URLs
+- `get_reflog` — Reflog (recovery, lost commits, branch history)
 - `suggest_commit_message` — Staged diff for AI commit message suggestions
 
 **Write**
 - `stage`, `unstage`, `commit` — Stage and commit changes
 - `push`, `force_push`, `pull` — Sync with remotes (guardrails applied; force_push opt-in)
 - `checkout` — Switch branch or restore file
-- `create_branch`, `delete_branch` — Branch management (protected branches blocked)
+- `create_branch`, `delete_branch`, `branch_rename` — Branch management (protected branches blocked)
 - `merge` — Merge a branch into current (cannot merge into protected branches)
 - `stash` — Stash working changes (push/pop/list)
 - `fetch` — Fetch from remote (updates refs, no merge)
@@ -49,6 +62,12 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - `cherry_pick` — Apply a commit onto current branch (protected branches blocked)
 - `revert` — Create revert commit (protected branches blocked)
 - `tag` — List tags or create lightweight/annotated tag
+- `rebase` — Rebase current branch onto another (rebase/abort/continue; protected branches blocked)
+- `remote` — Add, remove, set-url remotes (config file + dry-run; protected remotes blocked)
+- `init` — Initialize new Git repository (bare or normal)
+- `clone` — Clone repository from URL into local directory
+- `mv` — Move or rename files (git mv; tracks rename for better diff history)
+- `archive` — Create tar/zip archive of repo at a ref (release bundles; dry-run)
 
 ---
 
@@ -72,21 +91,23 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - ~~Unit tests for push, pull, checkout, create_branch, delete_branch~~ ✅
 
 ### Phase 3 — Merge, Stash & Polish  
-*Target: ~1 week* 🟡 Partially Complete (merge, stash, reset, fetch, force_push done)
+*Target: ~1 week* ✅ Complete
 
 - ~~`merge`~~ ✅
 - ~~`stash` (push/pop/list)~~ ✅
 - ~~`reset` (soft/mixed only)~~ ✅
 - ~~`fetch`~~ ✅
 - ~~Optional `force_push` behind config flag~~ ✅ (add `force_push` to GIT_MIND_ALLOWED_ACTIONS)
-- *Deferred:* Dry-run support for critical ops
-- *Deferred:* Client setup docs: Cursor, Claude, ChatGPT
+- ~~Dry-run support for critical ops~~ ✅ (`GIT_MIND_DRY_RUN=1`)
+- ~~Client setup docs: Cursor, Claude, ChatGPT~~ ✅
 - *Deferred:* Integration tests for remote operations (optional)
 
 ### Phase 4 — Release & Iteration  
 *Target: Ongoing*
 
-- npm publish, changelog, contribution guide
+- npm publish
+- ~~changelog~~ ✅ ([CHANGELOG.md](CHANGELOG.md))
+- ~~contribution guide~~ ✅ ([CONTRIBUTING.md](CONTRIBUTING.md))
 - Community feedback and iteration
 - ~~`cherry_pick`, `revert`, `tag`~~ ✅
 - ~~Optional: config file~~ ✅
@@ -104,6 +125,9 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | get_branches | ✅ | — |
 | suggest_commit_message | ✅ | — |
 | get_remotes | ✅ | — |
+| get_reflog | ✅ | — |
+| get_show | ✅ | — |
+| get_config | ✅ | — |
 | stage | ✅ | Low |
 | unstage | ✅ | Low |
 | commit | ✅ | Low |
@@ -112,6 +136,7 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | checkout | ✅ | Low |
 | create_branch | ✅ | Low |
 | delete_branch | ✅ | Medium |
+| branch_rename | ✅ | Low |
 | merge | ✅ | Medium |
 | stash | ✅ | Low |
 | reset | ✅ | Medium (soft/mixed only) |
@@ -119,6 +144,12 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | cherry_pick | ✅ | Medium |
 | revert | ✅ | Medium |
 | tag | ✅ | Low |
+| rebase | ✅ | Medium |
+| remote | ✅ | Low |
+| init | ✅ | Low |
+| clone | ✅ | Medium |
+| mv | ✅ | Low |
+| archive | ✅ | Low |
 | force_push | ✅ | High (opt-in via GIT_MIND_ALLOWED_ACTIONS) |
 
 ---
@@ -136,6 +167,8 @@ See [docs/safety.md](docs/safety.md) for details.
 ## Links
 
 - [README](README.md) — Installation and usage
+- [CHANGELOG](CHANGELOG.md) — Version history
+- [CONTRIBUTING](CONTRIBUTING.md) — Contribution guide
 - [LibreChat Integration](docs/integrations/librechat.md) — Setup for LibreChat
 
 ---

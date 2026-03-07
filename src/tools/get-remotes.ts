@@ -3,6 +3,7 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { getGit, validateRepo } from "../lib/git";
 import { textResponse } from "../lib/response";
 import { formatGitError } from "../lib/format-git-error";
+import * as fmt from "../lib/format-response";
 
 const GetRemotesArgsSchema = z.object({
   repoPath: z.string().optional().describe("Path to the git repository"),
@@ -28,22 +29,22 @@ export function registerGetRemotes(server: McpServer): void {
         const remotes = await git.getRemotes(true);
 
         if (!remotes || remotes.length === 0) {
-          return textResponse("No remotes configured.");
+          return textResponse(fmt.emptyState("No remotes configured.", "🔗"));
         }
 
         const lines = remotes.flatMap((r) => {
           const refs = r.refs;
-          if (!refs) return [`  ${r.name}\t(no URLs)`];
+          if (!refs) return [fmt.kv(fmt.code(r.name), "(no URLs)")];
           const urls = [...new Set([refs.push, refs.fetch].filter(Boolean))];
           return urls.length > 0
-            ? urls.map((u) => `  ${r.name}\t${u}`)
-            : [`  ${r.name}\t(no URLs)`];
+            ? urls.map((u) => fmt.kv(fmt.code(r.name), u))
+            : [fmt.kv(fmt.code(r.name), "(no URLs)")];
         });
 
-        const text = "Remotes:\n" + lines.join("\n");
+        const text = fmt.section("Remotes", "🔗") + lines.join("\n");
         return textResponse(text);
       } catch (e) {
-        return textResponse(`Error: ${formatGitError(e)}`);
+        return textResponse(fmt.error(formatGitError(e)));
       }
     },
   );

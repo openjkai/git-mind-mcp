@@ -2,7 +2,8 @@
 
 **MCP server for Git intelligence** — status, diff, blame, branches, merge, stage, commit, push, pull, checkout, stash, fetch, reset, cherry_pick, revert, tag. Works with any MCP-compatible client (Cursor, Claude Desktop, [LibreChat](https://librechat.ai), etc.).
 
-> **[Roadmap](ROADMAP.md)** — Planned features, phases, and timeline.
+> **[Roadmap](ROADMAP.md)** — Planned features, phases, and timeline.  
+> **[Contributing](CONTRIBUTING.md)** — How to contribute.
 
 ## Features
 
@@ -13,9 +14,14 @@
 - `get_blame` — Who last modified each line of a file
 - `get_branches` — Local and remote branches
 - `get_remotes` — List remotes and URLs (for push/pull targets)
+- `get_reflog` — Reflog (recovery, lost commits, branch history)
+- `get_show` — Show a specific commit (message, author, diff)
+- `get_config` — Read Git config (specific key or all)
 - `suggest_commit_message` — Staged diff for AI to suggest commit messages
 
 **Write**
+- `init` — Initialize a new Git repository (git init; supports bare)
+- `clone` — Clone a repository from URL (git clone)
 - `stage` — Stage files for commit (git add)
 - `unstage` — Unstage files (git reset)
 - `commit` — Create a commit with staged changes
@@ -25,6 +31,7 @@
 - `checkout` — Switch branch or restore file
 - `create_branch` — Create and optionally checkout a branch
 - `delete_branch` — Delete local branch (protected branches blocked)
+- `branch_rename` — Rename a branch (protected branches blocked)
 - `merge` — Merge a branch into the current branch (cannot merge into protected branches)
 - `stash` — Stash changes (push/pop/list)
 - `fetch` — Fetch from remote (updates refs, no merge)
@@ -32,12 +39,22 @@
 - `cherry_pick` — Apply a commit onto current branch (protected branches blocked)
 - `revert` — Create revert commit (protected branches blocked)
 - `tag` — List tags or create lightweight/annotated tag
+- `rebase` — Rebase current branch onto another (action: rebase/abort/continue; protected branches blocked)
+- `remote` — Add, remove, or set URL of remotes (config file + dry-run; protected remotes like origin blocked from remove)
+- `mv` — Move or rename files (git mv; tracks rename for better diff history)
+- `archive` — Create tar/zip archive of repo at a ref (release bundles; dry-run)
 
 **Configuration** (optional config file + environment variables; env overrides file)
 - **Config file** — Place `git-mind.config.json` or `.git-mind.json` in the working directory (or set `GIT_MIND_CONFIG_FILE`). See [git-mind.config.example.json](git-mind.config.example.json) and [Safety Model](docs/safety.md).
-- `GIT_MIND_ALLOWED_ACTIONS` — Comma-separated list of allowed operations (default: `stage,unstage,commit`). Add `push,force_push,pull,checkout,create_branch,delete_branch,merge,stash,fetch,reset,cherry_pick,revert,tag` to enable sync, branching, merge, stash, fetch, reset, cherry_pick, revert, tag, and optional force_push.
+- `GIT_MIND_ALLOWED_ACTIONS` — Comma-separated list of allowed operations (default: `stage,unstage,commit`). Add `init,clone,push,force_push,pull,checkout,create_branch,delete_branch,branch_rename,merge,stash,fetch,reset,cherry_pick,revert,tag,rebase,remote,mv,archive` to enable init, clone, sync, branching, merge, stash, fetch, reset, cherry_pick, revert, tag, rebase, remote, branch_rename, mv, archive, and optional force_push.
 - `GIT_MIND_PROTECTED_BRANCHES` — Branches to protect from push/delete/merge (default: `main,master`)
+- `GIT_MIND_PROTECTED_REMOTES` — Remotes to protect from removal (default: `origin`; config file supports array)
 - `GIT_MIND_STRICT_MODE` — Set to `1` to disable force operations
+- `GIT_MIND_DRY_RUN` — Set to `1` to simulate critical ops (init, clone, push, pull, merge, delete_branch, reset, cherry_pick, revert, rebase, remote) without executing
+
+## Client Setup
+
+- [Cursor](docs/setup/cursor.md) — [Claude Desktop](docs/setup/claude-desktop.md) — [ChatGPT](docs/setup/chatgpt.md) — [LibreChat](docs/integrations/librechat.md)
 
 ## Installation
 

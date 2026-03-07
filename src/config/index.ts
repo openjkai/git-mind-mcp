@@ -17,11 +17,14 @@ function parseList(value: string | undefined): string[] {
 export interface Config {
   allowedActions: string[];
   protectedBranches: string[];
+  protectedRemotes: string[];
   strictMode: boolean;
+  dryRun: boolean;
 }
 
 const DEFAULT_ALLOWED = ["stage", "unstage", "commit"];
 const DEFAULT_PROTECTED = ["main", "master"];
+const DEFAULT_PROTECTED_REMOTES = ["origin"];
 
 const ConfigFileSchema = z.object({
   allowedActions: z
@@ -36,7 +39,14 @@ const ConfigFileSchema = z.object({
       z.array(z.string()),
     ])
     .optional(),
+  protectedRemotes: z
+    .union([
+      z.string(),
+      z.array(z.string()),
+    ])
+    .optional(),
   strictMode: z.boolean().optional(),
+  dryRun: z.boolean().optional(),
 });
 
 type ConfigFileInput = z.infer<typeof ConfigFileSchema>;
@@ -87,8 +97,16 @@ function parseConfigFile(data: ConfigFileInput): Partial<Config> {
       ? data.protectedBranches.filter(Boolean)
       : parseList(data.protectedBranches as string);
   }
+  if (data.protectedRemotes !== undefined) {
+    out.protectedRemotes = Array.isArray(data.protectedRemotes)
+      ? data.protectedRemotes.filter(Boolean)
+      : parseList(data.protectedRemotes as string);
+  }
   if (data.strictMode !== undefined) {
     out.strictMode = Boolean(data.strictMode);
+  }
+  if (data.dryRun !== undefined) {
+    out.dryRun = Boolean(data.dryRun);
   }
   return out;
 }
@@ -98,7 +116,9 @@ export function loadConfig(): Config {
 
   const allowedEnv = process.env.GIT_MIND_ALLOWED_ACTIONS;
   const protectedEnv = process.env.GIT_MIND_PROTECTED_BRANCHES;
+  const protectedRemotesEnv = process.env.GIT_MIND_PROTECTED_REMOTES;
   const strictEnv = process.env.GIT_MIND_STRICT_MODE;
+  const dryRunEnv = process.env.GIT_MIND_DRY_RUN;
 
   return {
     allowedActions:
@@ -113,10 +133,20 @@ export function loadConfig(): Config {
         : (fileConfig?.protectedBranches?.length
             ? fileConfig.protectedBranches
             : DEFAULT_PROTECTED),
+    protectedRemotes:
+      protectedRemotesEnv && protectedRemotesEnv.length > 0
+        ? parseList(protectedRemotesEnv)
+        : (fileConfig?.protectedRemotes !== undefined
+            ? fileConfig.protectedRemotes
+            : DEFAULT_PROTECTED_REMOTES),
     strictMode:
       strictEnv === "1" || strictEnv?.toLowerCase() === "true"
         ? true
         : fileConfig?.strictMode ?? false,
+    dryRun:
+      dryRunEnv === "1" || dryRunEnv?.toLowerCase() === "true"
+        ? true
+        : fileConfig?.dryRun ?? false,
   };
 }
 
