@@ -68,6 +68,9 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - `clone` — Clone repository from URL into local directory
 - `mv` — Move or rename files (git mv; tracks rename for better diff history)
 - `archive` — Create tar/zip archive of repo at a ref (release bundles; dry-run)
+- `bisect` — Binary search to find bug-introducing commit (start/bad/good/reset/run; dry-run)
+- `worktree` — Manage multiple working trees (add/list/remove; dry-run)
+- `get_describe` — Human-readable ref description (e.g. v1.2.3-5-gabc1234)
 
 ---
 
@@ -150,6 +153,9 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | clone | ✅ | Medium |
 | mv | ✅ | Low |
 | archive | ✅ | Low |
+| bisect | ✅ | Low |
+| worktree | ✅ | Low |
+| get_describe | ✅ | — |
 | force_push | ✅ | High (opt-in via GIT_MIND_ALLOWED_ACTIONS) |
 
 ---

@@ -68,7 +68,7 @@ describe("clean tool", () => {
     const handler = mockServer.getHandler("clean");
     const result = await handler({});
 
-    expect(mockRaw).not.toHaveBeenCalled();
+    expect(mockClean).not.toHaveBeenCalled();
     expect(result).toMatchObject({
       content: [{ type: "text", text: expect.stringContaining("not in allowed actions") }],
     });
