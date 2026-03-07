@@ -46,6 +46,9 @@ describe("tool registration", () => {
       "set_config",
       "mv",
       "archive",
+      "bisect",
+      "worktree",
+      "get_describe",
     ];
 
     for (const name of expectedTools) {

@@ -37,6 +37,9 @@ import { registerApply } from "./apply";
 import { registerSetConfig } from "./set-config";
 import { registerMv } from "./mv";
 import { registerArchive } from "./archive";
+import { registerBisect } from "./bisect";
+import { registerWorktree } from "./worktree";
+import { registerGetDescribe } from "./get-describe";
 
 export function registerAllTools(server: McpServer): void {
   registerGetStatus(server);
@@ -77,4 +80,7 @@ export function registerAllTools(server: McpServer): void {
   registerSetConfig(server);
   registerMv(server);
   registerArchive(server);
+  registerBisect(server);
+  registerWorktree(server);
+  registerGetDescribe(server);
 }
