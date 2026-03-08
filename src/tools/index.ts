@@ -40,6 +40,8 @@ import { registerArchive } from "./archive";
 import { registerBisect } from "./bisect";
 import { registerWorktree } from "./worktree";
 import { registerGetDescribe } from "./get-describe";
+import { registerGetLsFiles } from "./get-ls-files";
+import { registerGetShortlog } from "./get-shortlog";
 
 export function registerAllTools(server: McpServer): void {
   registerGetStatus(server);
@@ -83,4 +85,6 @@ export function registerAllTools(server: McpServer): void {
   registerBisect(server);
   registerWorktree(server);
   registerGetDescribe(server);
+  registerGetLsFiles(server);
+  registerGetShortlog(server);
 }

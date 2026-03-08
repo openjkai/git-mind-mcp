@@ -48,6 +48,12 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - `get_branches` — Local and remote branches
 - `get_remotes` — List remotes and URLs
 - `get_reflog` — Reflog (recovery, lost commits, branch history)
+- `get_show` — Show commit details (message, author, diff)
+- `get_config` — Read Git configuration (key or all)
+- `get_log` — Commit log with filters
+- `get_describe` — Human-readable ref description (e.g. v1.2.3-5-gabc1234)
+- `get_ls_files` — List tracked (or staged, others) files
+- `get_shortlog` — Summarize commits by author
 - `suggest_commit_message` — Staged diff for AI commit message suggestions
 
 **Write**
@@ -71,6 +77,8 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - `bisect` — Binary search to find bug-introducing commit (start/bad/good/reset/run; dry-run)
 - `worktree` — Manage multiple working trees (add/list/remove; dry-run)
 - `get_describe` — Human-readable ref description (e.g. v1.2.3-5-gabc1234)
+- `get_ls_files` — List tracked (or staged, others) files
+- `get_shortlog` — Summarize commits by author
 
 ---
 
@@ -156,6 +164,8 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | bisect | ✅ | Low |
 | worktree | ✅ | Low |
 | get_describe | ✅ | — |
+| get_ls_files | ✅ | — |
+| get_shortlog | ✅ | — |
 | force_push | ✅ | High (opt-in via GIT_MIND_ALLOWED_ACTIONS) |
 
 ---
