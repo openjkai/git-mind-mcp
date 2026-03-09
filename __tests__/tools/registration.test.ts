@@ -49,6 +49,10 @@ describe("tool registration", () => {
       "bisect",
       "worktree",
       "get_describe",
+      "get_ls_files",
+      "get_shortlog",
+      "get_ignore",
+      "get_current_branch",
     ];
 
     for (const name of expectedTools) {

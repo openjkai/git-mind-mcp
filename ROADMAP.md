@@ -26,6 +26,8 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - ~~`get_show` tool~~ ✅ — Show commit details (message, author, diff)
 - ~~`get_config` tool~~ ✅ — Read Git configuration (key or all)
 - ~~`branch_rename` tool~~ ✅ — Rename branch (protected branches blocked; dry-run)
+- ~~`get_ignore` tool~~ ✅ — Read .gitignore and optional .git/info/exclude (useful for AI context)
+- ~~`get_current_branch` tool~~ ✅ — Get current branch name (git branch --show-current equivalent)
 
 ---
 
@@ -48,6 +50,14 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - `get_branches` — Local and remote branches
 - `get_remotes` — List remotes and URLs
 - `get_reflog` — Reflog (recovery, lost commits, branch history)
+- `get_show` — Show commit details (message, author, diff)
+- `get_config` — Read Git configuration (key or all)
+- `get_log` — Commit log with filters
+- `get_describe` — Human-readable ref description (e.g. v1.2.3-5-gabc1234)
+- `get_ls_files` — List tracked (or staged, others) files
+- `get_shortlog` — Summarize commits by author
+- `get_ignore` — Read .gitignore (and optional .git/info/exclude)
+- `get_current_branch` — Get current branch name
 - `suggest_commit_message` — Staged diff for AI commit message suggestions
 
 **Write**
@@ -70,7 +80,6 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - `archive` — Create tar/zip archive of repo at a ref (release bundles; dry-run)
 - `bisect` — Binary search to find bug-introducing commit (start/bad/good/reset/run; dry-run)
 - `worktree` — Manage multiple working trees (add/list/remove; dry-run)
-- `get_describe` — Human-readable ref description (e.g. v1.2.3-5-gabc1234)
 
 ---
 
@@ -156,6 +165,10 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 | bisect | ✅ | Low |
 | worktree | ✅ | Low |
 | get_describe | ✅ | — |
+| get_ls_files | ✅ | — |
+| get_shortlog | ✅ | — |
+| get_ignore | ✅ | — |
+| get_current_branch | ✅ | — |
 | force_push | ✅ | High (opt-in via GIT_MIND_ALLOWED_ACTIONS) |
 
 ---

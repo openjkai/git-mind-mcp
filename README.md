@@ -17,6 +17,12 @@
 - `get_reflog` — Reflog (recovery, lost commits, branch history)
 - `get_show` — Show a specific commit (message, author, diff)
 - `get_config` — Read Git config (specific key or all)
+- `get_log` — Commit log with filters
+- `get_describe` — Human-readable ref description (e.g. v1.2.3-5-gabc1234)
+- `get_ls_files` — List tracked (or staged, others) files
+- `get_shortlog` — Summarize commits by author
+- `get_ignore` — Read .gitignore (and optional .git/info/exclude)
+- `get_current_branch` — Get current branch name
 - `suggest_commit_message` — Staged diff for AI to suggest commit messages
 
 **Write**
@@ -53,7 +59,7 @@
 - `GIT_MIND_PROTECTED_BRANCHES` — Branches to protect from push/delete/merge (default: `main,master`)
 - `GIT_MIND_PROTECTED_REMOTES` — Remotes to protect from removal (default: `origin`; config file supports array)
 - `GIT_MIND_STRICT_MODE` — Set to `1` to disable force operations
-- `GIT_MIND_DRY_RUN` — Set to `1` to simulate critical ops (init, clone, push, pull, merge, delete_branch, reset, cherry_pick, revert, rebase, remote) without executing
+- `GIT_MIND_DRY_RUN` — Set to `1` to simulate critical ops (init, clone, push, pull, merge, delete_branch, reset, cherry_pick, revert, rebase, remote, archive, bisect, worktree) without executing
 
 ## Client Setup
 
