@@ -42,6 +42,8 @@ import { registerWorktree } from "./worktree";
 import { registerGetDescribe } from "./get-describe";
 import { registerGetLsFiles } from "./get-ls-files";
 import { registerGetShortlog } from "./get-shortlog";
+import { registerGetIgnore } from "./get-ignore";
+import { registerGetCurrentBranch } from "./get-current-branch";
 
 export function registerAllTools(server: McpServer): void {
   registerGetStatus(server);
@@ -87,4 +89,6 @@ export function registerAllTools(server: McpServer): void {
   registerGetDescribe(server);
   registerGetLsFiles(server);
   registerGetShortlog(server);
+  registerGetIgnore(server);
+  registerGetCurrentBranch(server);
 }

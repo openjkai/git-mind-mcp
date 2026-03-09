@@ -21,6 +21,8 @@
 - `get_describe` — Human-readable ref description (e.g. v1.2.3-5-gabc1234)
 - `get_ls_files` — List tracked (or staged, others) files
 - `get_shortlog` — Summarize commits by author
+- `get_ignore` — Read .gitignore (and optional .git/info/exclude)
+- `get_current_branch` — Get current branch name
 - `suggest_commit_message` — Staged diff for AI to suggest commit messages
 
 **Write**
