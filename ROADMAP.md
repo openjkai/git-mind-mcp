@@ -115,14 +115,16 @@ Git Mind MCP aims to be the go-to MCP server for Git intelligence and actions. I
 - *Deferred:* Integration tests for remote operations (optional)
 
 ### Phase 4 — Release & Iteration  
-*Target: Ongoing*
+*Target: Ongoing* ✅ Ready
 
-- npm publish
 - ~~changelog~~ ✅ ([CHANGELOG.md](CHANGELOG.md))
 - ~~contribution guide~~ ✅ ([CONTRIBUTING.md](CONTRIBUTING.md))
-- Community feedback and iteration
 - ~~`cherry_pick`, `revert`, `tag`~~ ✅
 - ~~Optional: config file~~ ✅
+- ~~All tools implemented & tested~~ ✅ (50 tool test files, 217+ tests)
+- ~~prepublishOnly script~~ ✅ — Runs build + test before `npm publish`
+- **npm publish** — Run `npm run ci && npm publish` when ready
+- Community feedback and iteration
 
 ---
 
