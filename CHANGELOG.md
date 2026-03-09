@@ -9,14 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Read tools**: `get_reflog`, `get_show`, `get_config`, `get_log`, `get_describe`, `get_ls_files`, `get_shortlog`, `get_ignore`, `get_current_branch` — Reflog, commit details, config, log, describe, tracked files, shortlog, ignore patterns, current branch
+- **Write tools**: `init`, `clone`, `branch_rename`, `clean`, `submodule`, `apply`, `set_config`, `mv`, `archive`, `bisect`, `worktree` — Init repo, clone, rename branch, clean, submodule ops, apply patch, set config, move files, archive, bisect, worktrees
 - **`remote` tool** — Add, remove, or set URL of remotes; config file (`protectedRemotes`) + dry-run; cannot remove protected remotes (default: origin)
-- **`protectedRemotes` config** — Config file and `GIT_MIND_PROTECTED_REMOTES` env; default `["origin"]`
 - **`rebase` tool** — Rebase current branch onto another; supports `action`: rebase/abort/continue; protected branches blocked
 - **Optional config file** — Load from `git-mind.config.json` or `.git-mind.json`; env vars override; `GIT_MIND_CONFIG_FILE` for custom path
-- **Dry-run mode** — `GIT_MIND_DRY_RUN=1` simulates push, pull, merge, delete_branch, reset, cherry_pick, revert, rebase without executing
+- **Dry-run mode** — `GIT_MIND_DRY_RUN=1` for push, pull, merge, delete_branch, reset, cherry_pick, revert, rebase, remote, archive, bisect, worktree
 - **Client setup docs** — Guides for [Cursor](docs/setup/cursor.md), [Claude Desktop](docs/setup/claude-desktop.md), [ChatGPT](docs/setup/chatgpt.md)
 - **`force_push` tool** — Opt-in force push (requires `force_push` in `GIT_MIND_ALLOWED_ACTIONS`)
 - **`cherry_pick`**, **`revert`**, **`tag`** tools
+- **`protectedRemotes` config** — Config file and `GIT_MIND_PROTECTED_REMOTES` env; default `["origin"]`
+- LibreChat integration docs
 
 ### Changed
 
